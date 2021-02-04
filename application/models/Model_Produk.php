@@ -3,13 +3,27 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Model_Produk extends CI_Model
 {
-    public function hitungdata()
+    // Produk
+    public function hitung_produk()
+    {
+        return $this->db->get('produk')->num_rows();
+    }
+
+    // Ambil Data Kategori Produk
+    public function get_produk($limit, $start)
+    {
+        if (!$start)
+            $start = 0;
+        return $this->db->get('produk', $limit, $start)->result_array();
+    }
+
+    public function hitung_kategori()
     {
         return $this->db->get('kategori')->num_rows();
     }
 
     // Ambil Data Kategori Produk
-    public function getkategori($limit, $start)
+    public function get_kategori($limit, $start)
     {
         if (!$start)
             $start = 0;

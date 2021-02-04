@@ -3,6 +3,31 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Produk extends CI_Controller
 {
+    public function index()
+    {
+        $data['title'] = 'Data Produk';
+
+        $this->load->library('pagination');
+        // Halaman Pagination
+        $config['total_rows'] = $this->Model_Produk->hitung_produk();
+        $config['base_url'] = 'http://localhost/buku-usaha/produk/';
+        // Total Baris Pagination
+        $config['per_page'] = 3;
+
+        // INISIALISASI Pagination
+        $this->pagination->initialize($config);
+        // END INISIALISASI
+
+        $data['start'] = $this->uri->segment(3);
+        $data['produk'] = $this->Model_Produk->get_produk($config['per_page'], $data['start']);
+        // END PAGINATION
+
+        $this->load->view('template/header', $data);
+        $this->load->view('template/sidebar');
+        $this->load->view('produk/index', $data);
+        $this->load->view('template/footer');
+    }
+
     // Kategori Index
     public function kategori()
     {
@@ -10,7 +35,7 @@ class Produk extends CI_Controller
 
         $this->load->library('pagination');
         // Halaman Pagination
-        $config['total_rows'] = $this->Model_Produk->hitungdata();
+        $config['total_rows'] = $this->Model_Produk->hitung_kategori();
         $config['base_url'] = 'http://localhost/buku-usaha/produk/kategori';
         // Total Baris Pagination
         $config['per_page'] = 3;
@@ -20,7 +45,7 @@ class Produk extends CI_Controller
         // END INISIALISASI
 
         $data['start'] = $this->uri->segment(3);
-        $data['kategori'] = $this->Model_Produk->getkategori($config['per_page'], $data['start']);
+        $data['kategori'] = $this->Model_Produk->get_kategori($config['per_page'], $data['start']);
         // END PAGINATION
 
         $this->load->view('template/header', $data);

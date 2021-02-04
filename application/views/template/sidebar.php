@@ -21,13 +21,13 @@
             </li>
             <li class="menu-header">Produk</li>
             <li>
-                <a class="nav-link" href="<?= base_url(); ?>/produk/kategori">
+                <a class="nav-link" href="<?= base_url(); ?>produk/kategori">
                     <i class="fas fa-list"></i>
                     <span>Kategori Produk</span>
                 </a>
             </li>
             <li>
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="<?= base_url(); ?>produk/">
                     <i class="fas fa-box-open"></i>
                     <span>Data Produk</span>
                 </a>

@@ -12,7 +12,7 @@
                         <thead>
                             <tr>
                                 <th scope="col" width="10%" class="text-center">No</th>
-                                <th scope="col" width="70%" class="text-center">Nama</th>
+                                <th scope="col" width="70%" class="text-center">Nama Kategori</th>
                                 <th scope="col" width="20%" class="text-center">Action</th>
                             </tr>
                         </thead>
