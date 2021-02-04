@@ -21,7 +21,7 @@
             </li>
             <li class="menu-header">Produk</li>
             <li>
-                <a class="nav-link" href="<?= base_url(); ?>/home/category">
+                <a class="nav-link" href="<?= base_url(); ?>/produk/kategori">
                     <i class="fas fa-list"></i>
                     <span>Kategori Produk</span>
                 </a>

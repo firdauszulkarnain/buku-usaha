@@ -11,12 +11,4 @@ class Home extends CI_Controller
         $this->load->view('dashboard');
         $this->load->view('template/footer');
     }
-    public function category()
-    {
-        $data['title'] = 'Kategori Produk';
-        $this->load->view('template/header', $data);
-        $this->load->view('template/sidebar', $data);
-        $this->load->view('category');
-        $this->load->view('template/footer');
-    }
 }
