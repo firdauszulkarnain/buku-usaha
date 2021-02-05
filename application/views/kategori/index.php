@@ -20,7 +20,7 @@
                             <?php foreach ($kategori as $kt) : ?>
                                 <tr>
                                     <th scope="row"><?= 1 + $start; ?></th>
-                                    <td><?= $kt['nama']; ?></td>
+                                    <td><?= $kt['nama_kategori']; ?></td>
                                     <td class="text-center">
                                         <!-- Button Update -->
                                         <a href="<?= base_url(); ?>/produk/update_kategori/<?= $kt['id_kategori'] ?>" class="btn btn-sm btn-success text-light"><i class="fas fa-edit"></i></a>

@@ -24,20 +24,20 @@
                             <?php foreach ($produk as $pr) : ?>
                                 <tr>
                                     <th scope="row"><?= $start + 1; ?></th>
-                                    <td><?= $pr['nama_barang']; ?></td>
+                                    <td><?= $pr['nama_produk']; ?></td>
                                     <td>Rp. <?= number_format($pr['hrg_beli'], 0, ',', '.') ?></td>
                                     <td>Rp. <?= number_format($pr['hrg_jual'], 0, ',', '.') ?></td>
                                     <td class="text-center font-weight-bolder"><?= $pr['stock']; ?></td>
-                                    <td>Speaker</td>
+                                    <td><?= $pr['kategori']; ?></td>
                                     <td class="text-center">
                                         <!-- Button Tambah Stock -->
-                                        <a href="javascript:;" data-id_barang="<?= $pr['id_barang']; ?>" data-toggle="modal" data-target="#tambahstock">
+                                        <a href="javascript:;" data-id_produk="<?= $pr['id_produk']; ?>" data-toggle="modal" data-target="#tambahstock">
                                             <button class=" btn btn-sm btn-light"><i class="fas fa-plus"></i></button>
                                         </a>
                                         <!-- Button Update -->
-                                        <a href="<?= base_url(); ?>produk/hapus_produk/<?= $pr['id_barang']; ?>" class="btn btn-sm btn-success text-light"><i class="fas fa-edit"></i></a>
+                                        <a href="#" class="btn btn-sm btn-success text-light"><i class="fas fa-edit"></i></a>
                                         <!-- Button Hapus -->
-                                        <a href="#" class="btn btn-sm btn-danger text-light"><i class="fas fa-trash-alt"></i></a>
+                                        <a href="<?= base_url(); ?>produk/hapus_produk/<?= $pr['id_produk']; ?>" class="btn btn-sm btn-danger text-light"><i class="fas fa-trash-alt"></i></a>
                                     </td>
                                 </tr>
                                 <?php $start++; ?>
@@ -65,7 +65,7 @@
             </div>
             <form action="<?= base_url(); ?>produk/tambah_stock" method="POST">
                 <div class="modal-body">
-                    <input type="hidden" id="id_barang" name="id_barang">
+                    <input type="hidden" id="id_produk" name="id_produk">
                     <div class="form-group">
                         <label for="stock">Stock Produk</label>
                         <input type="number" class="form-control" id="stock" name="stock" autocomplete="off" placeholder="Masukan stock Produk...">
@@ -81,53 +81,12 @@
 </div>
 
 
-
-<!-- Modal Ubah -->
-<!-- <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="edit-data" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-                <h4 class="modal-title">Ubah Data</h4>
-            </div>
-            <form class="form-horizontal" action="" method="post" enctype="multipart/form-data" role="form">
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label class="col-lg-2 col-sm-2 control-label">Nama</label>
-                        <div class="col-lg-10">
-                            <input type="hidden" id="id" name="id">
-                            <input type="text" class="form-control" id="nama" name="nama" placeholder="Tuliskan Nama">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-lg-2 col-sm-2 control-label">Alamat</label>
-                        <div class="col-lg-10">
-                            <textarea class="form-control" id="alamat" name="alamat" placeholder="Tuliskan Alamat"></textarea>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-lg-2 col-sm-2 control-label">Pekerjaan</label>
-                        <div class="col-lg-10">
-                            <input type="text" class="form-control" id="pekerjaan" name="pekerjaan" placeholder="Tuliskan Pekerjaan">
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-info" type="submit"> Simpan&nbsp;</button>
-                    <button type="button" class="btn btn-warning" data-dismiss="modal"> Batal</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-</div> -->
-<!-- END Modal Ubah -->
 <script>
     $(document).ready(function() {
         $('#tambahstock').on('show.bs.modal', function(event) {
             var div = $(event.relatedTarget)
             var modal = $(this)
-            modal.find('#id_barang').attr("value", div.data('id_barang'));
+            modal.find('#id_produk').attr("value", div.data('id_produk'));
         });
     });
 </script>

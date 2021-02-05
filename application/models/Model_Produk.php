@@ -14,7 +14,12 @@ class Model_Produk extends CI_Model
     {
         if (!$start)
             $start = 0;
-        return $this->db->get('produk', $limit, $start)->result_array();
+
+        $query = "SELECT `produk`.*, `kategori`.`nama_kategori` as kategori 
+                FROM `produk` JOIN `kategori`
+                ON `produk`.`kategori_id` = `kategori`.`id_kategori`
+                LIMIT  $start, $limit";
+        return $this->db->query($query)->result_array();
     }
 
     public function data_kategori()
@@ -26,7 +31,7 @@ class Model_Produk extends CI_Model
     public function tambah_produk()
     {
         $data = [
-            'nama_barang' => htmlspecialchars($this->input->post('nama')),
+            'nama_produk' => htmlspecialchars($this->input->post('nama')),
             'hrg_beli' => htmlspecialchars($this->input->post('harga_beli')),
             'hrg_jual' => htmlspecialchars($this->input->post('harga_jual')),
             'kategori_id' => $this->input->post('kategori'),
@@ -39,15 +44,23 @@ class Model_Produk extends CI_Model
     public function tambah_stock($add_stock)
     {
 
-        $id = $this->input->post('id_barang');
-        $data_stock['jumlah'] = $this->db->get_where('produk', ['id_barang' => $id])->row_array();
+        $id = $this->input->post('id_produk');
+        $data_stock['jumlah'] = $this->db->get_where('produk', ['id_produk' => $id])->row_array();
         $stock_now = $data_stock['jumlah']['stock'];
         $data = [
             'stock' => $stock_now + $add_stock
         ];
 
-        $this->db->where('id_barang', $id);
+        $this->db->where('id_produk', $id);
         $this->db->update('produk', $data);
+    }
+
+    // Hapus Produk
+
+    public function hapus_produk($id_produk)
+    {
+        $this->db->where('id_produk', $id_produk);
+        $this->db->delete('produk');
     }
 
     public function hitung_kategori()
@@ -67,11 +80,13 @@ class Model_Produk extends CI_Model
     public function tambah_kategori()
     {
         $data = [
-            'nama' => htmlspecialchars($this->input->post('nama_kat'))
+            'nama_kategori' => htmlspecialchars($this->input->post('nama_kat'))
         ];
 
         $this->db->insert('kategori', $data);
     }
+
+
 
     // Hapus Kategori Produk
 
@@ -84,7 +99,7 @@ class Model_Produk extends CI_Model
     public function update_kategori($id_kategori)
     {
         $data = [
-            'nama' => htmlspecialchars($this->input->post('nama_kat'))
+            'nama_kategori' => htmlspecialchars($this->input->post('nama_kat'))
         ];
 
         $this->db->where('id_kategori', $id_kategori);

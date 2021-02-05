@@ -10,7 +10,7 @@ class Produk extends CI_Controller
         $this->load->library('pagination');
         // Halaman Pagination
         $config['total_rows'] = $this->Model_Produk->hitung_produk();
-        $config['base_url'] = 'http://localhost/buku-usaha/produk/';
+        $config['base_url'] = 'http://localhost/buku-usaha/produk/index';
         // Total Baris Pagination
         $config['per_page'] = 3;
 
@@ -36,7 +36,7 @@ class Produk extends CI_Controller
         $this->form_validation->set_rules(
             'nama',
             'Nama Produk',
-            'trim|required|is_unique[produk.nama_barang]|regex_match[/^([a-z ])+$/i]',
+            'trim|required|is_unique[produk.nama_produk]|regex_match[/^([a-z ])+$/i]',
             [
                 'required' => "Nama Menu Harus Diisi",
                 'is_unique' => "Nama Kategori Sudah Ada",
@@ -115,6 +115,13 @@ class Produk extends CI_Controller
     // Hapus Produk
     public function hapus_produk($id_produk)
     {
+        $this->Model_Produk->hapus_produk($id_produk);
+        $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible fade show" role="alert"><strong>Berhasil</strong> Hapus Produk 
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>');
+        redirect('produk');
     }
 
     // Kategori Index
@@ -150,7 +157,7 @@ class Produk extends CI_Controller
         $this->form_validation->set_rules(
             'nama_kat',
             'Nama Kategori',
-            'trim|required|is_unique[kategori.nama]|regex_match[/^([a-z ])+$/i]',
+            'trim|required|is_unique[kategori.nama_kategori]|regex_match[/^([a-z ])+$/i]',
             [
                 'required' => "Nama Kategori Harus Diisi",
                 'is_unique' => "Nama Kategori Sudah Ada",
@@ -195,7 +202,7 @@ class Produk extends CI_Controller
         $this->form_validation->set_rules(
             'nama_kat',
             'Nama Kategori',
-            'trim|required|is_unique[kategori.nama]|regex_match[/^([a-z ])+$/i]',
+            'trim|required|is_unique[kategori.nama_kategori]|regex_match[/^([a-z ])+$/i]',
             [
                 'required' => "Nama Menu Harus Diisi",
                 'is_unique' => "Nama Kategori Sudah Ada",
