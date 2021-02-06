@@ -34,14 +34,14 @@
             </li>
             <li class="menu-header">Keuangan</li>
             <li>
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="<?= base_url(); ?>keuangan/pembelian">
                     <i class="fas fa-arrow-alt-circle-left">
                     </i>
                     <span>Pembelian</span>
                 </a>
             </li>
             <li>
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="<?= base_url(); ?>keuangan/penjualan">
                     <i class="fas fa-arrow-alt-circle-right"></i>
                     <span>Penjualan</span>
                 </a>
