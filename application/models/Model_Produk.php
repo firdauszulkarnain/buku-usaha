@@ -30,10 +30,14 @@ class Model_Produk extends CI_Model
     // Tambah Produk
     public function tambah_produk()
     {
+        $jual = $this->input->post('harga_jual');
+        $harga_jual = str_replace(".", "", $jual);
+        $beli = $this->input->post('harga_beli');
+        $harga_beli = str_replace(".", "", $beli);
         $data = [
             'nama_produk' => htmlspecialchars($this->input->post('nama')),
-            'hrg_beli' => htmlspecialchars($this->input->post('harga_beli')),
-            'hrg_jual' => htmlspecialchars($this->input->post('harga_jual')),
+            'hrg_beli' => $harga_beli,
+            'hrg_jual' => $harga_jual,
             'kategori_id' => $this->input->post('kategori'),
             'stock' => 0
         ];
@@ -85,10 +89,14 @@ class Model_Produk extends CI_Model
 
     public function update_produk($id_produk)
     {
+        $jual = $this->input->post('harga_jual');
+        $harga_jual = str_replace(".", "", $jual);
+        $beli = $this->input->post('harga_beli');
+        $harga_beli = str_replace(".", "", $beli);
         $data = [
             'nama_produk' => htmlspecialchars($this->input->post('nama')),
-            'hrg_beli' => htmlspecialchars($this->input->post('harga_beli')),
-            'hrg_jual' => htmlspecialchars($this->input->post('harga_jual')),
+            'hrg_beli' => $harga_beli,
+            'hrg_jual' => $harga_jual,
             'kategori_id' => $this->input->post('kategori')
         ];
 
@@ -118,8 +126,6 @@ class Model_Produk extends CI_Model
 
         $this->db->insert('kategori', $data);
     }
-
-
 
     // Hapus Kategori Produk
 

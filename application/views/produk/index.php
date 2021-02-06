@@ -25,8 +25,8 @@
                                 <tr>
                                     <th scope="row"><?= $start + 1; ?></th>
                                     <td class="text-capitalize"><?= $pr['nama_produk']; ?></td>
-                                    <td class="text-center"><?= $pr['hrg_beli']; ?></td>
-                                    <td class="text-center"><?= $pr['hrg_jual']; ?></td>
+                                    <td class="text-center"><?= number_format($pr['hrg_beli'], 0, ',', '.') ?></td>
+                                    <td class="text-center"><?= number_format($pr['hrg_jual'], 0, ',', '.') ?></td>
                                     <td class="text-center font-weight-bolder"><?= $pr['stock']; ?></td>
                                     <td class="text-center"><?= $pr['kategori']; ?></td>
                                     <td class="text-center">

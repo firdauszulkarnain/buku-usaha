@@ -14,12 +14,12 @@
                             <div class=" form-row">
                                 <div class="form-group col-md-6">
                                     <label for="harga_beli">Harga Beli Produk (Rp)</label>
-                                    <input type="text" class="form-control uang" id="harga_beli" name="harga_beli" autocomplete="off" placeholder="Masukan Harga Beli Produk..." value="<?= $produk['hrg_beli']; ?>">
+                                    <input type="text" class="form-control uang" id="harga_beli" name="harga_beli" autocomplete="off" placeholder="Masukan Harga Beli Produk..." value="<?= number_format($produk['hrg_beli'], 0, ',', '.') ?>">
                                     <?= form_error('harga_beli', '<small class="form-text text-danger">', '</small>'); ?>
                                 </div>
                                 <div class=" form-group col-md-6">
                                     <label for="harga_jual">Harga Jual Produk (Rp)</label>
-                                    <input type="text" class="form-control uang" id="harga_jual" name="harga_jual" autocomplete="off" placeholder="Masukan Harga Jual Produk..." value="<?= $produk['hrg_jual']; ?>">
+                                    <input type="text" class="form-control uang" id="harga_jual" name="harga_jual" autocomplete="off" placeholder="Masukan Harga Jual Produk..." value="<?= number_format($produk['hrg_jual'], 0, ',', '.') ?>">
                                     <?= form_error('harga_jual', '<small class="form-text text-danger">', '</small>'); ?>
                                 </div>
                             </div>
