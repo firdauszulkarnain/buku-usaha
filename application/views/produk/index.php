@@ -13,8 +13,8 @@
                             <tr>
                                 <th scope="col" width="5%" class="text-center">No</th>
                                 <th scope="col" class="text-center">Nama</th>
-                                <th scope="col" width="18%" class="text-center">Harga Beli</th>
-                                <th scope="col" width="18%" class="text-center">Harga Jual</th>
+                                <th scope="col" width="15%" class="text-center">Harga Beli (Rp)</th>
+                                <th scope="col" width="15%" class="text-center">Harga Jual (Rp)</th>
                                 <th scope="col" width="5%" class="text-center">Stock</th>
                                 <th scope="col" class="text-center">Kategori</th>
                                 <th scope="col" width="20%" class="text-center">Action</th>
@@ -24,18 +24,18 @@
                             <?php foreach ($produk as $pr) : ?>
                                 <tr>
                                     <th scope="row"><?= $start + 1; ?></th>
-                                    <td><?= $pr['nama_produk']; ?></td>
-                                    <td>Rp. <?= number_format($pr['hrg_beli'], 0, ',', '.') ?></td>
-                                    <td>Rp. <?= number_format($pr['hrg_jual'], 0, ',', '.') ?></td>
+                                    <td class="text-capitalize"><?= $pr['nama_produk']; ?></td>
+                                    <td class="text-center"><?= $pr['hrg_beli']; ?></td>
+                                    <td class="text-center"><?= $pr['hrg_jual']; ?></td>
                                     <td class="text-center font-weight-bolder"><?= $pr['stock']; ?></td>
-                                    <td><?= $pr['kategori']; ?></td>
+                                    <td class="text-center"><?= $pr['kategori']; ?></td>
                                     <td class="text-center">
                                         <!-- Button Tambah Stock -->
                                         <a href="javascript:;" data-id_produk="<?= $pr['id_produk']; ?>" data-toggle="modal" data-target="#tambahstock">
                                             <button class=" btn btn-sm btn-light"><i class="fas fa-plus"></i></button>
                                         </a>
                                         <!-- Button Update -->
-                                        <a href="#" class="btn btn-sm btn-success text-light"><i class="fas fa-edit"></i></a>
+                                        <a href="<?= base_url(); ?>produk/update_produk/<?= $pr['id_produk']; ?>" class="btn btn-sm btn-success text-light"><i class="fas fa-edit"></i></a>
                                         <!-- Button Hapus -->
                                         <a href="<?= base_url(); ?>produk/hapus_produk/<?= $pr['id_produk']; ?>" class="btn btn-sm btn-danger text-light"><i class="fas fa-trash-alt"></i></a>
                                     </td>
@@ -79,14 +79,3 @@
         </div>
     </div>
 </div>
-
-
-<script>
-    $(document).ready(function() {
-        $('#tambahstock').on('show.bs.modal', function(event) {
-            var div = $(event.relatedTarget)
-            var modal = $(this)
-            modal.find('#id_produk').attr("value", div.data('id_produk'));
-        });
-    });
-</script>

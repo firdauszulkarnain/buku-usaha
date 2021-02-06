@@ -8,7 +8,7 @@
                         <form method="POST" action="">
                             <div class="form-group">
                                 <label for="nama_kat">Nama Kategori</label>
-                                <input type="text" class="form-control" id="nama_kat" name="nama_kat" autocomplete="off" value="<?= $kategori['nama_kategori']; ?>">
+                                <input type="text" class="form-control text-capitalize" id="nama_kat" name="nama_kat" autocomplete="off" value="<?= $kategori['nama_kategori']; ?>">
                                 <?= form_error('nama_kat', '<small class="form-text text-danger">', '</small>'); ?>
                             </div>
                             <a href="<?= base_url(); ?>/produk/kategori" class="btn btn-danger">Kembali</a>

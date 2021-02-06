@@ -36,11 +36,11 @@ class Produk extends CI_Controller
         $this->form_validation->set_rules(
             'nama',
             'Nama Produk',
-            'trim|required|is_unique[produk.nama_produk]|regex_match[/^([a-z ])+$/i]',
+            'trim|required|is_unique[produk.nama_produk]|regex_match[/^([-a-z0-9_ ])+$/i]',
             [
                 'required' => "Nama Menu Harus Diisi",
                 'is_unique' => "Nama Kategori Sudah Ada",
-                'regex_match' => "Inputan Hanya Menerima Karakter Huruf"
+                'regex_match' => "Karakter Inputan Salah"
             ]
 
         );
@@ -58,7 +58,7 @@ class Produk extends CI_Controller
         $this->form_validation->set_rules(
             'harga_jual',
             'Harga Jual',
-            'trim|required|numeric|min_length[4]',
+            'trim|required|min_length[4]',
             [
                 'required' => "Harga Jual Harus Diisi",
                 'numeric' => "Inputan Hanya Menerima Karakter Angka",
@@ -122,6 +122,59 @@ class Produk extends CI_Controller
         </button>
         </div>');
         redirect('produk');
+    }
+
+    public function update_produk($id_produk)
+    {
+        $data['title'] = 'Update Produk';
+        $data['produk'] = $this->Model_Produk->ambil_produk($id_produk);
+        $data['kategori'] = $this->Model_Produk->ambil_kat_produk($id_produk);
+        $this->form_validation->set_rules(
+            'nama',
+            'Nama Produk',
+            'trim|required|regex_match[/^([-a-z0-9_ ])+$/i]',
+            [
+                'required' => "Nama Menu Harus Diisi",
+                'regex_match' => "Karakter Inputan Salah"
+            ]
+
+        );
+
+        $this->form_validation->set_rules(
+            'harga_beli',
+            'Harga Beli',
+            'trim|required|numeric|min_length[4]',
+            [
+                'required' => "Harga Beli Harus Diisi",
+                'numeric' => "Inputan Hanya Menerima Karakter Angka",
+                'min_length' => "Minimal Harga Rp. 1.000.-"
+            ]
+        );
+        $this->form_validation->set_rules(
+            'harga_jual',
+            'Harga Jual',
+            'trim|required|numeric|min_length[4]',
+            [
+                'required' => "Harga Jual Harus Diisi",
+                'numeric' => "Inputan Hanya Menerima Karakter Angka",
+                'min_length' => "Minimal Harga Rp. 1.000.-"
+            ]
+        );
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('template/header', $data);
+            $this->load->view('template/sidebar');
+            $this->load->view('produk/update_produk', $data);
+            $this->load->view('template/footer');
+        } else {
+            $this->Model_Produk->update_produk($id_produk);
+            $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Berhasil</strong> Update Produk
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>');
+            redirect('produk');
+        }
     }
 
     // Kategori Index
