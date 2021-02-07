@@ -48,16 +48,30 @@ class Model_Produk extends CI_Model
     public function tambah_stock($add_stock)
     {
 
-        $id = $this->input->post('id_produk');
+        $id_produk = $this->input->post('id_produk');
 
-        $data_stock['jumlah'] = $this->db->get_where('produk', ['id_produk' => $id])->row_array();
-        $stock_now = $data_stock['jumlah']['stock'];
+        // Tambah Stock
+        $data_produk['produk'] = $this->db->get_where('produk', ['id_produk' => $id_produk])->row_array();
+        $stock_now = $data_produk['produk']['stock'];
+        $jumlah_stock = $stock_now + $add_stock;
+
         $data = [
-            'stock' => $stock_now + $add_stock
+            'stock' => $jumlah_stock
         ];
 
-        $this->db->where('id_produk', $id);
+        $this->db->where('id_produk', $id_produk);
         $this->db->update('produk', $data);
+
+        // Beli Barang
+        $hrg_beli = $data_produk['produk']['hrg_beli'];
+        $data_beli = [
+            'produk_id' => $id_produk,
+            'unit' => $add_stock,
+            'total_beli' => ($hrg_beli * $add_stock),
+            'tanggal_beli' => date('Y-m-d')
+        ];
+
+        $this->db->insert('pembelian', $data_beli);
     }
 
     // Hapus Produk

@@ -10,12 +10,21 @@
                                 <th scope="col" width="5%" class="text-center">No</th>
                                 <th scope="col" class="text-center">Nama Produk</th>
                                 <th scope="col" width="5%" class="text-center">Unit</th>
-                                <th scope="col" width="15%" class="text-center">Total Dana</th>
+                                <th scope="col" width="15%" class="text-center">Total Dana (Rp) </th>
                                 <th scope="col" width="15%" class="text-center">Tanggal Beli</th>
-                                <th scope="col" width="20%" class="text-center">Action</th>
                             </tr>
                         </thead>
                         <tbody>
+                            <?php foreach ($pembelian as $pb) : ?>
+                                <tr>
+                                    <th scope="row"><?= $start + 1; ?></th>
+                                    <td class="text-capitalize"><?= $pb['produk']; ?></td>
+                                    <td class="text-center"><?= $pb['unit']; ?></td>
+                                    <td class="text-center"><?= number_format($pb['total_beli'], 0, ',', '.') ?></td>
+                                    <td class="text-center font-weight-bolder"><?= $pb['tanggal_beli']; ?></td>
+                                </tr>
+                                <?php $start++; ?>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>
                 </div>
