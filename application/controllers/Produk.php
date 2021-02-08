@@ -3,7 +3,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Produk extends CI_Controller
 {
-    public function index()
+    public function data_produk()
     {
         $data['title'] = 'Data Produk';
 
@@ -86,29 +86,29 @@ class Produk extends CI_Controller
                 <span aria-hidden="true">&times;</span>
             </button>
             </div>');
-            redirect('produk');
+            redirect('produk/data_produk');
         }
     }
 
     // Tambah Stock Produk
     public function tambah_stock()
     {
-        $add_stock = $this->input->post('stock');
-        if (empty($add_stock) || $add_stock == 0) {
-            $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible fade show" role="alert"><strong>Gagal Tambah Stock</strong> <i class="fas fa-arrow-right"></i> Tambahan Stock Produk Harus Diisi
+        $this->form_validation->set_rules('stock', 'Stock', 'required|greater_than[0]');
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible fade show" role="alert"><strong>Gagal Tambah Stock</strong> <i class="fas fa-arrow-right"></i> Tambahan Stock Produk Harus Diisi Minimal 1 Unit
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
             </div>');
-            redirect('produk');
+            redirect('produk/data_produk');
         } else {
-            $this->Model_Produk->tambah_stock($add_stock);
+            $this->Model_Produk->tambah_stock();
             $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Berhasil</strong> Tambah Stock Produk
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
             </div>');
-            redirect('produk');
+            redirect('produk/data_produk');
         }
     }
 
@@ -121,7 +121,7 @@ class Produk extends CI_Controller
             <span aria-hidden="true">&times;</span>
         </button>
         </div>');
-        redirect('produk');
+        redirect('produk/data_produk');
     }
 
     public function update_produk($id_produk)
@@ -173,7 +173,7 @@ class Produk extends CI_Controller
                 <span aria-hidden="true">&times;</span>
             </button>
             </div>');
-            redirect('produk');
+            redirect('produk/data_produk');
         }
     }
 

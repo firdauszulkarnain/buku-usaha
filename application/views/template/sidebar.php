@@ -13,34 +13,35 @@
         </div>
         <ul class="sidebar-menu">
             <li class="menu-header">Dashboard</li>
-            <li>
-                <a class="nav-link" href="<?= base_url() ?>home">
+            <li <?= $this->uri->segment(1) == 'dashboard' ? 'class="active"' : "" ?>>
+                <a class="nav-link" href="<?= base_url() ?>dashboard">
                     <i class="fas fa-fire"></i>
                     <span>Dashboard</span>
                 </a>
             </li>
             <li class="menu-header">Produk</li>
-            <li>
+            <li <?= $this->uri->segment(2) == 'data_produk' ? 'class="active"' : "" ?>>
+                <a class="nav-link" href="<?= base_url(); ?>produk/data_produk">
+                    <i class="fas fa-box-open"></i>
+                    <span>Data Produk</span>
+                </a>
+            </li>
+            <li <?= $this->uri->segment(2) == 'kategori' ? 'class="active"' : "" ?>>
                 <a class="nav-link" href="<?= base_url(); ?>produk/kategori">
                     <i class="fas fa-list"></i>
                     <span>Kategori Produk</span>
                 </a>
             </li>
-            <li>
-                <a class="nav-link" href="<?= base_url(); ?>produk/">
-                    <i class="fas fa-box-open"></i>
-                    <span>Data Produk</span>
-                </a>
-            </li>
+
             <li class="menu-header">Keuangan</li>
-            <li>
+            <li <?= $this->uri->segment(2) == 'pembelian' ? 'class="active"' : "" ?>>
                 <a class="nav-link" href="<?= base_url(); ?>keuangan/pembelian">
                     <i class="fas fa-arrow-alt-circle-left">
                     </i>
                     <span>Pembelian</span>
                 </a>
             </li>
-            <li>
+            <li <?= $this->uri->segment(2) == 'penjualan' ? 'class="active"' : "" ?>>
                 <a class="nav-link" href="<?= base_url(); ?>keuangan/penjualan">
                     <i class="fas fa-arrow-alt-circle-right"></i>
                     <span>Penjualan</span>

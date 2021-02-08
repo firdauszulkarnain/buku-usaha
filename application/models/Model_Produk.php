@@ -35,7 +35,7 @@ class Model_Produk extends CI_Model
         $beli = $this->input->post('harga_beli');
         $harga_beli = str_replace(".", "", $beli);
         $data = [
-            'nama_produk' => htmlspecialchars($this->input->post('nama')),
+            'nama_produk' => htmlspecialchars(ucwords($this->input->post('nama'))),
             'hrg_beli' => $harga_beli,
             'hrg_jual' => $harga_jual,
             'kategori_id' => $this->input->post('kategori'),
@@ -45,11 +45,11 @@ class Model_Produk extends CI_Model
         $this->db->insert('produk', $data);
     }
 
-    public function tambah_stock($add_stock)
+    public function tambah_stock()
     {
 
         $id_produk = $this->input->post('id_produk');
-
+        $add_stock = $this->input->post('stock');
         // Tambah Stock
         $data_produk['produk'] = $this->db->get_where('produk', ['id_produk' => $id_produk])->row_array();
         $stock_now = $data_produk['produk']['stock'];
@@ -108,7 +108,7 @@ class Model_Produk extends CI_Model
         $beli = $this->input->post('harga_beli');
         $harga_beli = str_replace(".", "", $beli);
         $data = [
-            'nama_produk' => htmlspecialchars($this->input->post('nama')),
+            'nama_produk' => htmlspecialchars(ucwords($this->input->post('nama'))),
             'hrg_beli' => $harga_beli,
             'hrg_jual' => $harga_jual,
             'kategori_id' => $this->input->post('kategori')
@@ -135,7 +135,7 @@ class Model_Produk extends CI_Model
     public function tambah_kategori()
     {
         $data = [
-            'nama_kategori' => htmlspecialchars($this->input->post('nama_kat'))
+            'nama_kategori' => htmlspecialchars(ucwords($this->input->post('nama_kat')))
         ];
 
         $this->db->insert('kategori', $data);
@@ -152,7 +152,7 @@ class Model_Produk extends CI_Model
     public function update_kategori($id_kategori)
     {
         $data = [
-            'nama_kategori' => htmlspecialchars($this->input->post('nama_kat'))
+            'nama_kategori' => htmlspecialchars(ucwords($this->input->post('nama_kat')))
         ];
 
         $this->db->where('id_kategori', $id_kategori);

@@ -12,9 +12,10 @@ class Model_Keuangan extends CI_Model
         if (!$start)
             $start = 0;
 
-        $query = "SELECT `pembelian`.*, `produk`.`nama_produk` as produk
+        $query = "SELECT `pembelian`.`id_pembelian`, SUM(`pembelian`.`total_beli`) as total_beli, SUM(`pembelian`.`unit`) as unit , `pembelian`.`tanggal_beli` as tanggal_beli, `produk`.`nama_produk` as produk
                 FROM pembelian JOIN produk
                 ON `pembelian`.`produk_id` = `produk`.`id_produk`
+                GROUP BY produk, DAY(`pembelian`.`tanggal_beli`)
                 ORDER BY `pembelian`.`id_pembelian` DESC LIMIT  $start, $limit";
         return $this->db->query($query)->result_array();
     }
@@ -34,9 +35,10 @@ class Model_Keuangan extends CI_Model
         if (!$start)
             $start = 0;
 
-        $query = "SELECT `penjualan`.*, `produk`.`nama_produk` as produk
+        $query = "SELECT `penjualan`.`id_penjualan`,  SUM(`penjualan`.`total_untung`) as total_untung, SUM(`penjualan`.`unit`) as unit , `penjualan`.`tanggal_jual` as tanggal_jual, `produk`.`nama_produk` as produk
                 FROM penjualan JOIN produk
                 ON `penjualan`.`produk_id` = `produk`.`id_produk`
+                  GROUP BY produk, DAY(`penjualan`.`tanggal_jual`)
                 ORDER BY `penjualan`.`id_penjualan` DESC LIMIT  $start, $limit";
         return $this->db->query($query)->result_array();
     }
