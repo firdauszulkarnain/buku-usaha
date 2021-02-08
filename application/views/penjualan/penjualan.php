@@ -14,7 +14,7 @@
                                 <th scope="col" width="5%" class="text-center">No</th>
                                 <th scope="col" class="text-center">Nama Produk</th>
                                 <th scope="col" width="5%" class="text-center">Unit</th>
-                                <th scope="col" width="15%" class="text-center">Keuntungan</th>
+                                <th scope="col" width="18%" class="text-center">Keuntungan (Rp)</th>
                                 <th scope="col" width="15%" class="text-center">Tanggal Terjual</th>
                             </tr>
                         </thead>
@@ -22,7 +22,7 @@
                             <?php foreach ($penjualan as $pj) : ?>
                                 <tr>
                                     <th scope="row"><?= $start + 1; ?></th>
-                                    <td class="text-capitalize"><?= $pj['produk']; ?></td>
+                                    <td class="text-capitalize"><?= $pj['produk']; ?><span class="badge badge-light float-right"><?= $pj['input'] ?>x Penjualan</span> </td>
                                     <td class="text-center"><?= $pj['unit']; ?></td>
                                     <td class="text-center"><?= number_format($pj['total_untung'], 0, ',', '.') ?></td>
                                     <td class="text-center font-weight-bolder"><?= $pj['tanggal_jual']; ?></td>
@@ -31,6 +31,9 @@
                             <?php endforeach; ?>
                         </tbody>
                     </table>
+                </div>
+                <div class="float-right mt-2">
+                    <?= $this->pagination->create_links(); ?>
                 </div>
             </div>
         </div>

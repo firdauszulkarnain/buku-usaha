@@ -33,7 +33,7 @@
                                 </select>
                                 <?= form_error('kategori', '<small class="form-text text-danger">', '</small>'); ?>
                             </div>
-                            <a href="<?= base_url(); ?>/produk" class="btn btn-danger">Kembali</a>
+                            <a href="<?= base_url(); ?>produk/data_produk" class="btn btn-danger">Kembali</a>
                             <button type="submit" class="btn btn-primary float-right">Simpan</button>
                         </form>
                     </div>

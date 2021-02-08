@@ -28,6 +28,9 @@
                         </tbody>
                     </table>
                 </div>
+                <div class="float-right mt-2">
+                    <?= $this->pagination->create_links(); ?>
+                </div>
             </div>
     </section>
 </div>

@@ -33,7 +33,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="mt-2">
+                <div class="float-right mt-2">
                     <?= $this->pagination->create_links(); ?>
                 </div>
             </div>

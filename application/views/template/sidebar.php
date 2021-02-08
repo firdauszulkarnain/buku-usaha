@@ -9,11 +9,11 @@
 <div class="main-sidebar">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
-            <a href="index.html"><i class="fas fa-book-open"></i> Buku Usaha</a>
+            <a href="<?= base_url() ?>dashboard" class="text-primary font-weight-bold" style="font-size: 16px;"><i class="fas fa-book-open"></i> Buku Usaha</a>
         </div>
         <ul class="sidebar-menu">
             <li class="menu-header">Dashboard</li>
-            <li <?= $this->uri->segment(1) == 'dashboard' ? 'class="active"' : "" ?>>
+            <li <?= $this->uri->segment(1) == 'dashboard' || $this->uri->segment(1) == '' ? 'class="active"' : "" ?>>
                 <a class="nav-link" href="<?= base_url() ?>dashboard">
                     <i class="fas fa-fire"></i>
                     <span>Dashboard</span>

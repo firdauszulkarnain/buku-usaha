@@ -21,6 +21,7 @@
                                 <input type="number" class="form-control" id="unit" name="unit" autocomplete="off" placeholder="Masukan Unit Terjual.." value="<?= set_value('unit');  ?>">
                                 <?= form_error('unit', '<small class="form-text text-danger">', '</small>'); ?>
                             </div>
+                            <a href="<?= base_url(); ?>keuangan/penjualan" class="btn btn-danger">Kembali</a>
                             <button type="submit" class="btn btn-primary float-right">Tambahkan</button>
                         </form>
                     </div>
