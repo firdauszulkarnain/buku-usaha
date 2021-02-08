@@ -20,13 +20,13 @@
                 </a>
             </li>
             <li class="menu-header">Produk</li>
-            <li <?= $this->uri->segment(2) == 'data_produk' ? 'class="active"' : "" ?>>
+            <li <?= $this->uri->segment(2) == 'data_produk' || $this->uri->segment(2) == 'tambah_produk' || $this->uri->segment(2) == 'update_produk' ? 'class="active"' : "" ?>>
                 <a class="nav-link" href="<?= base_url(); ?>produk/data_produk">
                     <i class="fas fa-box-open"></i>
                     <span>Data Produk</span>
                 </a>
             </li>
-            <li <?= $this->uri->segment(2) == 'kategori' ? 'class="active"' : "" ?>>
+            <li <?= $this->uri->segment(2) == 'kategori' || $this->uri->segment(2) == 'tambah_kategori' || $this->uri->segment(2) == 'update_kategori' ? 'class="active"' : "" ?>>
                 <a class="nav-link" href="<?= base_url(); ?>produk/kategori">
                     <i class="fas fa-list"></i>
                     <span>Kategori Produk</span>
@@ -41,7 +41,7 @@
                     <span>Pembelian</span>
                 </a>
             </li>
-            <li <?= $this->uri->segment(2) == 'penjualan' ? 'class="active"' : "" ?>>
+            <li <?= $this->uri->segment(2) == 'penjualan' || $this->uri->segment(2) == 'tambah_penjualan' ? 'class="active"' : "" ?>>
                 <a class="nav-link" href="<?= base_url(); ?>keuangan/penjualan">
                     <i class="fas fa-arrow-alt-circle-right"></i>
                     <span>Penjualan</span>

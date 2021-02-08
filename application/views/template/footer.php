@@ -46,17 +46,13 @@
       var modal = $(this)
       modal.find('#id_produk').attr("value", div.data('id_produk'));
     });
-  });
 
-  // Masking Uang
-  $(document).ready(function() {
-
+    // Masking Uang
     // Format mata uang.
     $('.uang').mask('000.000.000', {
       reverse: true
     });
-
-  })
+  });
 </script>
 </body>
 
