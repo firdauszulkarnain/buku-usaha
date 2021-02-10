@@ -8,19 +8,27 @@ class Produk extends CI_Controller
         $data['title'] = 'Data Produk';
 
         $this->load->library('pagination');
+
+        if ($this->input->post('keyword')) {
+            $data['keyword'] = $this->input->post('keyword');
+            $this->session->set_userdata('keyword', $data['keyword']);
+        } else {
+            $data['keyword'] = $this->session->userdata('keyword');;
+        }
         // Halaman Pagination
-        $config['total_rows'] = $this->Model_Produk->hitung_produk();
-        $config['base_url'] = 'http://localhost/buku-usaha/produk/index';
+        $config['total_rows'] = $this->Model_Produk->hitung_produk($data['keyword']);
+        $config['base_url'] = 'http://localhost/buku-usaha/produk/data_produk';
         // Total Baris Pagination
-        $config['per_page'] = 3;
+        $config['per_page'] = 5;
 
         // INISIALISASI Pagination
         $this->pagination->initialize($config);
         // END INISIALISASI
 
         $data['start'] = $this->uri->segment(3);
-        $data['produk'] = $this->Model_Produk->get_produk($config['per_page'], $data['start']);
+        $data['produk'] = $this->Model_Produk->get_produk($config['per_page'], $data['start'], $data['keyword']);
         // END PAGINATION
+
 
         $this->load->view('template/header', $data);
         $this->load->view('template/sidebar');
@@ -58,7 +66,7 @@ class Produk extends CI_Controller
         $this->form_validation->set_rules(
             'harga_jual',
             'Harga Jual',
-            'trim|required|min_length[4]',
+            'trim|required|numeric|min_length[4]',
             [
                 'required' => "Harga Jual Harus Diisi",
                 'numeric' => "Inputan Hanya Menerima Karakter Angka",

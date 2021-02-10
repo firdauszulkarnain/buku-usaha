@@ -4,20 +4,25 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Model_Produk extends CI_Model
 {
     // Produk
-    public function hitung_produk()
+    public function hitung_produk($keyword)
     {
-        return $this->db->get('produk')->num_rows();
+        // return $this->db->get('produk')->num_rows();
+        $this->db->like('nama_produk', $keyword);
+        $this->db->from('produk');
+        return $this->db->count_all_results();
     }
 
     // Ambil Data Kategori Produk
-    public function get_produk($limit, $start)
+    public function get_produk($limit, $start, $keyword = null)
     {
+
         if (!$start)
             $start = 0;
 
         $query = "SELECT `produk`.*, `kategori`.`nama_kategori` as kategori 
                 FROM `produk` JOIN `kategori`
                 ON `produk`.`kategori_id` = `kategori`.`id_kategori`
+                WHERE `produk`.`nama_produk` LIKE '%$keyword%'
                 ORDER BY `produk`.`id_produk` DESC LIMIT  $start, $limit";
         return $this->db->query($query)->result_array();
     }
