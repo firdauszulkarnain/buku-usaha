@@ -29,10 +29,11 @@
 <!-- Template JS File -->
 <script src="<?= base_url(); ?>/assets/js/scripts.js"></script>
 <script src="<?= base_url(); ?>/assets/js/custom.js"></script>
+<script src="<?= base_url(); ?>/assets/js/sweetalert2.all.min.js"></script>
 
 <!-- Page Specific JS File -->
 <script src="<?= base_url(); ?>/assets/js/page/index.js"></script>
-
+<script src="<?= base_url(); ?>assets/js/sweetalert2.all.min.js"></script>
 
 
 
@@ -52,6 +53,37 @@
     $('.uang').mask('000.000.000', {
       reverse: true
     });
+  });
+
+
+  const flashData = $('.flash-data').data('flashdata');
+  const title = $('title').text();
+  console.log(flashData);
+
+  if (flashData) {
+    Swal.fire({
+      title: title,
+      text: 'Berhasil ' + flashData,
+      icon: 'success'
+    });
+  }
+
+  $('.tombol-hapus').on('click', function(e) {
+    e.preventDefault();
+    const href = $(this).attr('href');
+    Swal.fire({
+      title: 'Yakin Hapus Data',
+      text: "",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Ya, Hapus Data!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        document.location.href = href;
+      }
+    })
   });
 </script>
 </body>

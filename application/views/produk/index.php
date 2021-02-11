@@ -20,8 +20,7 @@
         </div>
         <div class="row">
             <div class="col-lg-12 mt-2">
-                <?= $this->session->flashdata('pesan'); ?>
-
+                <div class="flash-data" data-flashdata="<?= $this->session->flashdata('pesan'); ?>"></div>
                 <div class="table-responsive">
                     <table class="table table-bordered table-light shadow-sm p-3 mb-5 bg-white rounded">
                         <thead>
@@ -52,7 +51,7 @@
                                         <!-- Button Update -->
                                         <a href="<?= base_url(); ?>produk/update_produk/<?= $pr['id_produk']; ?>" class="btn btn-sm btn-success text-light"><i class="fas fa-edit"></i></a>
                                         <!-- Button Hapus -->
-                                        <a href="<?= base_url(); ?>produk/hapus_produk/<?= $pr['id_produk']; ?>" class="btn btn-sm btn-danger text-light"><i class="fas fa-trash-alt"></i></a>
+                                        <a href="<?= base_url(); ?>produk/hapus_produk/<?= $pr['id_produk']; ?>" class="btn btn-sm btn-danger text-light tombol-hapus"><i class="fas fa-trash-alt"></i></a>
                                     </td>
                                 </tr>
                                 <?php $start++; ?>

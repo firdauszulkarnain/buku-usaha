@@ -3,7 +3,7 @@
     <section class="section">
         <div class="row mt-5">
             <div class="col-lg-12 mt-2">
-                <?= $this->session->flashdata('pesan'); ?>
+                <div class="flash-data" data-flashdata="<?= $this->session->flashdata('pesan'); ?>"></div>
                 <a href="<?= base_url()  ?>keuangan/tambah_penjualan" class="btn btn-primary mb-3">
                     Tambah Penjualan Produk
                 </a>

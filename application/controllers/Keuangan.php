@@ -47,11 +47,7 @@ class Keuangan extends CI_Controller
             $this->load->view('template/footer');
         } else {
             $this->Model_Keuangan->tambah_penjualan();
-            $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Berhasil</strong> Tambah Data Penjualan
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            </div>');
+            $this->session->set_flashdata('pesan', 'Tambah Data Penjualan');
             redirect('keuangan/penjualan');
         }
     }

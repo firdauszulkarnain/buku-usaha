@@ -89,11 +89,7 @@ class Produk extends CI_Controller
             $this->load->view('template/footer');
         } else {
             $this->Model_Produk->tambah_produk();
-            $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Berhasil</strong> Tambah Produk
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            </div>');
+            $this->session->set_flashdata('pesan', 'Tambah Produk');
             redirect('produk/data_produk');
         }
     }
@@ -103,19 +99,15 @@ class Produk extends CI_Controller
     {
         $this->form_validation->set_rules('stock', 'Stock', 'required|greater_than[0]');
         if ($this->form_validation->run() == false) {
-            $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible fade show" role="alert"><strong>Gagal Tambah Stock</strong> <i class="fas fa-arrow-right"></i> Tambahan Stock Produk Harus Diisi Minimal 1 Unit
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            </div>');
+            // $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible fade show" role="alert"><strong>Gagal Tambah Stock</strong> <i class="fas fa-arrow-right"></i> Tambahan Stock Produk Harus Diisi Minimal 1 Unit
+            // <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            //     <span aria-hidden="true">&times;</span>
+            // </button>
+            // </div>');
             redirect('produk/data_produk');
         } else {
             $this->Model_Produk->tambah_stock();
-            $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Berhasil</strong> Tambah Stock Produk
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            </div>');
+            $this->session->set_flashdata('pesan', 'Tambah Stock Produk');
             redirect('produk/data_produk');
         }
     }
@@ -124,11 +116,7 @@ class Produk extends CI_Controller
     public function hapus_produk($id_produk)
     {
         $this->Model_Produk->hapus_produk($id_produk);
-        $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible fade show" role="alert"><strong>Berhasil</strong> Hapus Produk 
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-        </div>');
+        $this->session->set_flashdata('pesan', 'Hapus Produk');
         redirect('produk/data_produk');
     }
 
@@ -176,11 +164,7 @@ class Produk extends CI_Controller
             $this->load->view('template/footer');
         } else {
             $this->Model_Produk->update_produk($id_produk);
-            $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Berhasil</strong> Update Produk
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            </div>');
+            $this->session->set_flashdata('pesan', 'Update Produk');
             redirect('produk/data_produk');
         }
     }
@@ -234,11 +218,7 @@ class Produk extends CI_Controller
             $this->load->view('template/footer');
         } else {
             $this->Model_Produk->tambah_kategori();
-            $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Berhasil</strong> Tambah Kategori Produk
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            </div>');
+            $this->session->set_flashdata('pesan', 'Tambah Kategori Produk');
             redirect('produk/kategori');
         }
     }
@@ -247,11 +227,7 @@ class Produk extends CI_Controller
     public function hapus_kategori($id_kategori)
     {
         $this->Model_Produk->hapus_kategori($id_kategori);
-        $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible fade show" role="alert"><strong>Berhasil</strong> Hapus Kategori Produk 
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-        </div>');
+        $this->session->set_flashdata('pesan', 'Hapus Kategori Produk ');
         redirect('produk/kategori');
     }
 
@@ -279,11 +255,7 @@ class Produk extends CI_Controller
             $this->load->view('template/footer');
         } else {
             $this->Model_Produk->update_kategori($id_kategori);
-            $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Berhasil</strong> Update Kategori Produk
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            </div>');
+            $this->session->set_flashdata('pesan', 'Update Kategori Produk');
             redirect('produk/kategori');
         }
     }
