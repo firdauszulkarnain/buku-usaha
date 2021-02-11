@@ -78,7 +78,7 @@ class Model_Keuangan extends CI_Model
         $query = "SELECT `penjualan`.`id_penjualan`,  SUM(`penjualan`.`total_untung`) as total_untung, SUM(`penjualan`.`unit`) as unit , `penjualan`.`tanggal_jual` as tanggal_jual, COUNT(`penjualan`.`produk_id`) as input, `produk`.`nama_produk` as produk
                 FROM penjualan JOIN produk
                 ON `penjualan`.`produk_id` = `produk`.`id_produk`
-                  GROUP BY produk, DAY(`penjualan`.`tanggal_jual`)
+                GROUP BY produk, DAY(`penjualan`.`tanggal_jual`)
                 ORDER BY `penjualan`.`id_penjualan` DESC LIMIT  $start, $limit";
         return $this->db->query($query)->result_array();
     }
@@ -100,5 +100,36 @@ class Model_Keuangan extends CI_Model
         ];
 
         $this->db->insert('penjualan', $data);
+    }
+
+    public function penjualan_pdf()
+    {
+        $query = "SELECT `penjualan`.`id_penjualan`,  SUM(`penjualan`.`total_untung`) as total_untung, SUM(`penjualan`.`unit`) as unit , `penjualan`.`tanggal_jual` as tanggal_jual, COUNT(`penjualan`.`produk_id`) as input, `produk`.`nama_produk` as produk
+                FROM penjualan JOIN produk
+                ON `penjualan`.`produk_id` = `produk`.`id_produk`
+                GROUP BY produk, DAY(`penjualan`.`tanggal_jual`)
+                ORDER BY `penjualan`.`id_penjualan` DESC";
+        return $this->db->query($query)->result_array();
+    }
+
+    public function total_penjualan()
+    {
+        $query = "SELECT sum(total_untung) as total_untung from penjualan";
+        return $this->db->query($query)->row_array();
+    }
+
+    public function pembelian_pdf()
+    {
+        $query = "SELECT `pembelian`.`id_pembelian`, SUM(`pembelian`.`total_beli`) as total_beli, SUM(`pembelian`.`unit`) as unit , `pembelian`.`tanggal_beli` as tanggal_beli, `produk`.`nama_produk` as produk
+                FROM pembelian JOIN produk
+                ON `pembelian`.`produk_id` = `produk`.`id_produk`
+                GROUP BY produk, DAY(`pembelian`.`tanggal_beli`)
+                ORDER BY `pembelian`.`id_pembelian` DESC";
+        return $this->db->query($query)->result_array();
+    }
+    public function total_pembelian()
+    {
+        $query = "SELECT sum(total_beli) as total_beli from pembelian";
+        return $this->db->query($query)->row_array();
     }
 }

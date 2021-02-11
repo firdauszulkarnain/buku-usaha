@@ -66,7 +66,7 @@ class Keuangan extends CI_Controller
         $config['total_rows'] = $this->Model_Keuangan->hitung_pembelian();
         $config['base_url'] = 'http://localhost/buku-usaha/keuangan/pembelian';
         // Total Baris Pagination
-        $config['per_page'] = 10;
+        $config['per_page'] = 3;
 
         // INISIALISASI Pagination
         $this->pagination->initialize($config);
@@ -80,5 +80,41 @@ class Keuangan extends CI_Controller
         $this->load->view('template/sidebar');
         $this->load->view('pembelian/pembelian', $data);
         $this->load->view('template/footer');
+    }
+
+
+    // Cetak PDF
+    public function penjualanToPdf()
+    {
+        $this->load->library('dompdf_gen');
+        $data['laporan'] = $this->Model_Keuangan->penjualan_pdf();
+        $data['bulan'] = $this->Model_Keuangan->ambil_bulan();
+        $data['total'] = $this->Model_Keuangan->total_penjualan();
+        $this->load->view('penjualan/laporan_pdf', $data);
+        $paper_size = 'A4';
+        $orientation = 'potrait';
+        $html = $this->output->get_output();
+        $this->dompdf->set_paper($paper_size, $orientation);
+        $this->dompdf->load_html($html);
+        $this->dompdf->render('');
+        $this->dompdf->stream('laporan_penjualan.pdf', array('Attachment' => 0));
+    }
+
+    // Cetak PDF
+    public function pembelianToPdf()
+    {
+        $this->load->library('dompdf_gen');
+        $data['laporan'] = $this->Model_Keuangan->pembelian_pdf();
+        $data['bulan'] = $this->Model_Keuangan->ambil_bulan();
+        $data['total'] = $this->Model_Keuangan->total_pembelian();
+
+        $this->load->view('pembelian/laporan_pdf', $data);
+        $paper_size = 'A4';
+        $orientation = 'potrait';
+        $html = $this->output->get_output();
+        $this->dompdf->set_paper($paper_size, $orientation);
+        $this->dompdf->load_html($html);
+        $this->dompdf->render('');
+        $this->dompdf->stream('laporan_pembelian.pdf', array('Attachment' => 0));
     }
 }

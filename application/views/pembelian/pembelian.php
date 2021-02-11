@@ -28,8 +28,13 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="float-right mt-2">
-                    <?= $this->pagination->create_links(); ?>
+                <div class="row mt-2">
+                    <div class="col-lg-6">
+                        <?= $this->pagination->create_links(); ?>
+                    </div>
+                    <div class="col-lg-6 float-right">
+                        <a class="btn btn-primary btn-lg text-light font-weight-bolder float-right" href="<?= base_url()  ?>keuangan/pembelianToPdf">PDF FILE</a>
+                    </div>
                 </div>
             </div>
     </section>
