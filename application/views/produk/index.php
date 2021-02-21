@@ -2,25 +2,11 @@
 <div class="main-content">
     <section class="section">
         <div class="row mt-5">
-            <div class="col-lg-8">
+            <div class="col-lg-12 mt-2">
+                <div class="flash-data" data-flashdata="<?= $this->session->flashdata('pesan'); ?>"></div>
                 <a href="<?= base_url(); ?>produk/tambah_produk" class="btn btn-lg btn-primary mb-3 font-weight-bold">
                     Tambah Produk
                 </a>
-            </div>
-            <div class="col-lg-4">
-                <form action="<?= base_url() ?>produk/data_produk" method="POST">
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" name="keyword" placeholder="Cari Produk ..." autocomplete="off" autofocus>
-                        <div class="input-group-append">
-                            <button class="input-group-text" type="submit" name="submit"><i class="fas fa-search"></i></button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12 mt-2">
-                <div class="flash-data" data-flashdata="<?= $this->session->flashdata('pesan'); ?>"></div>
                 <div class="table-responsive">
                     <table class="table table-bordered table-light shadow-sm p-3 mb-5 bg-white rounded">
                         <thead>

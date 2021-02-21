@@ -9,14 +9,8 @@ class Produk extends CI_Controller
 
         $this->load->library('pagination');
 
-        if ($this->input->post('keyword')) {
-            $data['keyword'] = $this->input->post('keyword');
-            $this->session->set_userdata('keyword', $data['keyword']);
-        } else {
-            $data['keyword'] = $this->session->userdata('keyword');;
-        }
         // Halaman Pagination
-        $config['total_rows'] = $this->Model_Produk->hitung_produk($data['keyword']);
+        $config['total_rows'] = $this->Model_Produk->hitung_produk();
         $config['base_url'] = 'http://localhost/buku-usaha/produk/data_produk';
         // Total Baris Pagination
         $config['per_page'] = 5;
@@ -26,7 +20,7 @@ class Produk extends CI_Controller
         // END INISIALISASI
 
         $data['start'] = $this->uri->segment(3);
-        $data['produk'] = $this->Model_Produk->get_produk($config['per_page'], $data['start'], $data['keyword']);
+        $data['produk'] = $this->Model_Produk->get_produk($config['per_page'], $data['start']);
         // END PAGINATION
 
 
