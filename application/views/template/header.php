@@ -9,13 +9,16 @@
 
   <!-- General CSS Files -->
   <link rel="stylesheet" href="<?= base_url() ?>assets/css/bootstrap.min.css">
+
+  <!-- DATA TABLES -->
+  <!--  Datatables  -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.css" />
+
+  <!--  extension responsive  -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
+
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
-  <!-- CSS Libraries
-  <link rel="stylesheet" href="/node_modules/jqvmap/dist/jqvmap.min.css">
-  <link rel="stylesheet" href="/node_modules/summernote/dist/summernote-bs4.css">
-  <link rel="stylesheet" href="/node_modules/owl.carousel/dist/assets/owl.carousel.min.css">
-  <link rel="stylesheet" href="/node_modules/owl.carousel/dist/assets/owl.theme.default.min.css"> -->
 
   <!-- Template CSS -->
   <link rel="stylesheet" href="<?= base_url(); ?>/assets/css/style.css">

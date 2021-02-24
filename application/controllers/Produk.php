@@ -6,24 +6,7 @@ class Produk extends CI_Controller
     public function data_produk()
     {
         $data['title'] = 'Data Produk';
-
-        $this->load->library('pagination');
-
-        // Halaman Pagination
-        $config['total_rows'] = $this->Model_Produk->hitung_produk();
-        $config['base_url'] = 'http://localhost/buku-usaha/produk/data_produk';
-        // Total Baris Pagination
-        $config['per_page'] = 5;
-
-        // INISIALISASI Pagination
-        $this->pagination->initialize($config);
-        // END INISIALISASI
-
-        $data['start'] = $this->uri->segment(3);
-        $data['produk'] = $this->Model_Produk->get_produk($config['per_page'], $data['start']);
-        // END PAGINATION
-
-
+        $data['produk'] = $this->Model_Produk->get_produk();
         $this->load->view('template/header', $data);
         $this->load->view('template/sidebar');
         $this->load->view('produk/index', $data);
@@ -91,13 +74,7 @@ class Produk extends CI_Controller
     // Tambah Stock Produk
     public function tambah_stock()
     {
-        $this->form_validation->set_rules('stock', 'Stock', 'required|greater_than[0]');
         if ($this->form_validation->run() == false) {
-            // $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible fade show" role="alert"><strong>Gagal Tambah Stock</strong> <i class="fas fa-arrow-right"></i> Tambahan Stock Produk Harus Diisi Minimal 1 Unit
-            // <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            //     <span aria-hidden="true">&times;</span>
-            // </button>
-            // </div>');
             redirect('produk/data_produk');
         } else {
             $this->Model_Produk->tambah_stock();
@@ -167,21 +144,7 @@ class Produk extends CI_Controller
     public function kategori()
     {
         $data['title'] = 'Kategori Produk';
-
-        $this->load->library('pagination');
-        // Halaman Pagination
-        $config['total_rows'] = $this->Model_Produk->hitung_kategori();
-        $config['base_url'] = 'http://localhost/buku-usaha/produk/kategori';
-        // Total Baris Pagination
-        $config['per_page'] = 3;
-
-        // INISIALISASI Pagination
-        $this->pagination->initialize($config);
-        // END INISIALISASI
-
-        $data['start'] = $this->uri->segment(3);
-        $data['kategori'] = $this->Model_Produk->get_kategori($config['per_page'], $data['start']);
-        // END PAGINATION
+        $data['kategori'] = $this->Model_Produk->get_kategori();
 
         $this->load->view('template/header', $data);
         $this->load->view('template/sidebar', $data);

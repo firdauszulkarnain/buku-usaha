@@ -43,20 +43,12 @@ class Model_Keuangan extends CI_Model
         return $this->db->query($query)->row_array();
     }
 
-    public function hitung_pembelian()
+    public function get_pembelian()
     {
-        return $this->db->get('pembelian')->num_rows();
-    }
-    public function get_pembelian($limit, $start)
-    {
-        if (!$start)
-            $start = 0;
-
         $query = "SELECT `pembelian`.`id_pembelian`, SUM(`pembelian`.`total_beli`) as total_beli, SUM(`pembelian`.`unit`) as unit , `pembelian`.`tanggal_beli` as tanggal_beli, `produk`.`nama_produk` as produk
                 FROM pembelian JOIN produk
                 ON `pembelian`.`produk_id` = `produk`.`id_produk`
-                GROUP BY produk, DAY(`pembelian`.`tanggal_beli`)
-                ORDER BY `pembelian`.`id_pembelian` DESC LIMIT  $start, $limit";
+                GROUP BY produk, DAY(`pembelian`.`tanggal_beli`)";
         return $this->db->query($query)->result_array();
     }
 
@@ -65,21 +57,14 @@ class Model_Keuangan extends CI_Model
         return $this->db->get('produk')->result_array();
     }
 
-    public function hitung_penjualan()
-    {
-        return $this->db->get('penjualan')->num_rows();
-    }
 
-    public function get_penjualan($limit, $start)
-    {
-        if (!$start)
-            $start = 0;
 
+    public function get_penjualan()
+    {
         $query = "SELECT `penjualan`.`id_penjualan`,  SUM(`penjualan`.`total_untung`) as total_untung, SUM(`penjualan`.`unit`) as unit , `penjualan`.`tanggal_jual` as tanggal_jual, COUNT(`penjualan`.`produk_id`) as input, `produk`.`nama_produk` as produk
                 FROM penjualan JOIN produk
                 ON `penjualan`.`produk_id` = `produk`.`id_produk`
-                GROUP BY produk, DAY(`penjualan`.`tanggal_jual`)
-                ORDER BY `penjualan`.`id_penjualan` DESC LIMIT  $start, $limit";
+                GROUP BY produk, DAY(`penjualan`.`tanggal_jual`)";
         return $this->db->query($query)->result_array();
     }
 

@@ -10,16 +10,11 @@ class Model_Produk extends CI_Model
     }
 
     // Ambil Data Kategori Produk
-    public function get_produk($limit, $start)
+    public function get_produk()
     {
-
-        if (!$start)
-            $start = 0;
-
         $query = "SELECT `produk`.*, `kategori`.`nama_kategori` as kategori 
                 FROM `produk` JOIN `kategori`
-                ON `produk`.`kategori_id` = `kategori`.`id_kategori`
-                ORDER BY `produk`.`id_produk` DESC LIMIT  $start, $limit";
+                ON `produk`.`kategori_id` = `kategori`.`id_kategori`";
         return $this->db->query($query)->result_array();
     }
 
@@ -119,17 +114,11 @@ class Model_Produk extends CI_Model
         $this->db->update('produk', $data);
     }
     // Bagian Kategori
-    public function hitung_kategori()
-    {
-        return $this->db->get('kategori')->num_rows();
-    }
 
     // Ambil Data Kategori Produk
-    public function get_kategori($limit, $start)
+    public function get_kategori()
     {
-        if (!$start)
-            $start = 0;
-        return $this->db->get('kategori', $limit, $start)->result_array();
+        return $this->db->get('kategori')->result_array();
     }
 
     // Tambah Kategori Produk
