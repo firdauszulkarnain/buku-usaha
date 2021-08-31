@@ -7,7 +7,8 @@ class Model_Keuangan extends CI_Model
     // Dashboard Punya
     public function total_bulan($id)
     {
-        $query = "SELECT SUM(total_untung) as total_bulan FROM penjualan WHERE user_id = $id && MONTH(tanggal_jual) = date('m')";
+        $bulan = date('n');
+        $query = "SELECT SUM(total_untung) as total_bulan FROM penjualan WHERE user_id = $id && month(tanggal_jual) = $bulan";
         return $this->db->query($query)->row_array();
     }
 
@@ -33,23 +34,22 @@ class Model_Keuangan extends CI_Model
 
     public function total_jual($id)
     {
-        $query = "SELECT count(id_penjualan) as total_jual FROM penjualan WHERE user_id = $id";
+        $bulan = date('n');
+        $query = "SELECT count(id_penjualan) as total_jual FROM penjualan WHERE user_id = $id && month(tanggal_jual) = $bulan";
         return $this->db->query($query)->row_array();
     }
 
     public function total_tahun($id)
     {
-        $query = "SELECT SUM(total_untung) as total_tahun FROM penjualan WHERE user_id = $id && MONTH(tanggal_jual) = date('Y')";
+        $tahun = date('Y');
+        $query = "SELECT SUM(total_untung) as total_tahun FROM penjualan WHERE user_id = $id && YEAR(tanggal_jual) = $tahun";
         return $this->db->query($query)->row_array();
     }
 
     public function get_pembelian($id)
     {
-        $query = "SELECT `pembelian`.`id_pembelian`, SUM(`pembelian`.`total_beli`) as total_beli, SUM(`pembelian`.`unit`) as unit , `pembelian`.`tanggal_beli` as tanggal_beli, `produk`.`nama_produk` as produk
-                FROM pembelian JOIN produk
-                ON `pembelian`.`produk_id` = `produk`.`id_produk`
-                WHERE `pembelian`.`user_id` = $id
-                GROUP BY produk, DAY(`pembelian`.`tanggal_beli`)";
+        $query = "SELECT SUM(total_beli) as total_beli, SUM(unit) as unit , tanggal_beli, produk_name FROM pembelian  
+                WHERE user_id = $id GROUP BY produk_name, DAY(tanggal_beli)";
         return $this->db->query($query)->result_array();
     }
 
@@ -62,11 +62,7 @@ class Model_Keuangan extends CI_Model
 
     public function get_penjualan($id)
     {
-        $query = "SELECT `penjualan`.`id_penjualan`,  SUM(`penjualan`.`total_untung`) as total_untung, SUM(`penjualan`.`unit`) as unit , `penjualan`.`tanggal_jual` as tanggal_jual, COUNT(`penjualan`.`produk_id`) as input, `produk`.`nama_produk` as produk
-                FROM penjualan JOIN produk
-                ON `penjualan`.`produk_id` = `produk`.`id_produk`
-                WHERE `penjualan`.`user_id` = $id
-                GROUP BY `penjualan`.`produk_id`, DAY(`penjualan`.`tanggal_jual`)";
+        $query = "SELECT SUM(total_untung) as total_untung, SUM(unit) as unit, tanggal_jual, produk_name, COUNT(produk_name) as input from penjualan WHERE user_id = $id GROUP BY produk_name, DAY(tanggal_jual)";
         return $this->db->query($query)->result_array();
     }
 
@@ -75,12 +71,13 @@ class Model_Keuangan extends CI_Model
     {
         $id_produk = $this->input->post('produk');
         $data['produk'] = $this->db->get_where('produk', ['id_produk' => $id_produk])->row_array();
+        $produk_name = $data['produk']['nama_produk'];
         $harga_jual = $data['produk']['hrg_jual'];
         $harga_beli = $data['produk']['hrg_beli'];
         $laba_bersih = $harga_jual - $harga_beli;
         $unit = $this->input->post('unit');
         $data = [
-            'produk_id' => $id_produk,
+            'produk_name' => $produk_name,
             'user_id' => $id,
             'unit' => $unit,
             'total_untung' => $laba_bersih * $unit,
@@ -92,12 +89,7 @@ class Model_Keuangan extends CI_Model
 
     public function penjualan_pdf($id)
     {
-        $query = "SELECT `penjualan`.`id_penjualan`,  SUM(`penjualan`.`total_untung`) as total_untung, SUM(`penjualan`.`unit`) as unit , `penjualan`.`tanggal_jual` as tanggal_jual, COUNT(`penjualan`.`produk_id`) as input, `produk`.`nama_produk` as produk
-                FROM penjualan JOIN produk
-                ON `penjualan`.`produk_id` = `produk`.`id_produk`
-                WHERE `penjualan`.`user_id` = $id
-                GROUP BY produk, DAY(`penjualan`.`tanggal_jual`)
-                ORDER BY `penjualan`.`id_penjualan` DESC";
+        $query = "SELECT id_penjualan,  SUM(total_untung) as total_untung, SUM(unit) as unit , tanggal_jual, COUNT(produk_name) as input, produk_name FROM penjualan WHERE user_id = $id GROUP BY produk_name, DAY(tanggal_jual) ORDER BY id_penjualan DESC";
         return $this->db->query($query)->result_array();
     }
 
@@ -109,12 +101,8 @@ class Model_Keuangan extends CI_Model
 
     public function pembelian_pdf($id)
     {
-        $query = "SELECT `pembelian`.`id_pembelian`, SUM(`pembelian`.`total_beli`) as total_beli, SUM(`pembelian`.`unit`) as unit , `pembelian`.`tanggal_beli` as tanggal_beli, `produk`.`nama_produk` as produk
-                FROM pembelian JOIN produk
-                ON `pembelian`.`produk_id` = `produk`.`id_produk`
-                WHERE `pembelian`.`user_id` = $id
-                GROUP BY produk, DAY(`pembelian`.`tanggal_beli`)
-                ORDER BY `pembelian`.`id_pembelian` DESC";
+        $query = "SELECT SUM(total_beli) as total_beli, SUM(unit) as unit , tanggal_beli, produk_name FROM pembelian WHERE user_id = $id 
+        GROUP BY produk_name, DAY(tanggal_beli) ORDER BY id_pembelian DESC";
         return $this->db->query($query)->result_array();
     }
     public function total_pembelian($id)

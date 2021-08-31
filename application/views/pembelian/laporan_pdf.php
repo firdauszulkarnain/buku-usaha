@@ -70,7 +70,7 @@
     <?php foreach ($laporan as $lp) : ?>
       <tr>
         <td><?= $start + 1; ?></td>
-        <td><?= $lp['produk']; ?></td>
+        <td><?= $lp['produk_name']; ?></td>
         <td><?= $lp['unit']; ?></td>
         <td><?= number_format($lp['total_beli'], 0, ',', '.') ?></td>
         <td><?= $lp['tanggal_beli']; ?></td>

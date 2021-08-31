@@ -26,9 +26,9 @@
                             <div class=" form-group">
                                 <label for="kategori">Kategori Produk</label>
                                 <select class="form-control" id="kategori" name="kategori">
-                                    <option value="<?= $produk['id_kategori'] ?>"><?= $produk['nama_kategori'] ?></option>
+                                    <option value="<?= $produk['kategori_name'] ?>"><?= $produk['kategori_name'] ?></option>
                                     <?php foreach ($kategori as $kt) : ?>
-                                        <option value="<?= $kt['id_kategori'] ?>"><?= $kt['nama_kategori'] ?></option>
+                                        <option value="<?= $kt['nama_kategori'] ?>"><?= $kt['nama_kategori'] ?></option>
                                     <?php endforeach; ?>
                                 </select>
                                 <?= form_error('kategori', '<small class="form-text text-danger">', '</small>'); ?>

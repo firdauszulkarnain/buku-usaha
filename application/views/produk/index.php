@@ -25,7 +25,7 @@
                                 <td class="text-center"><?= number_format($pr['hrg_beli'], 0, ',', '.') ?></td>
                                 <td class="text-center"><?= number_format($pr['hrg_jual'], 0, ',', '.') ?></td>
                                 <td class="text-center font-weight-bolder"><?= $pr['stock']; ?></td>
-                                <td class="text-center"><?= $pr['kategori']; ?></td>
+                                <td class="text-center"><?= $pr['kategori_name']; ?></td>
                                 <td class="text-center">
                                     <!-- Button Tambah Stock -->
                                     <a href="javascript:;" data-id_produk="<?= $pr['id_produk']; ?>" data-toggle="modal" data-target="#tambahstock">
@@ -34,7 +34,7 @@
                                     <!-- Button Update -->
                                     <a href="<?= base_url(); ?>produk/update_produk/<?= $pr['id_produk']; ?>" class="btn btn-sm btn-success text-light"><i class="fas fa-edit"></i></a>
                                     <!-- Button Hapus -->
-                                    <!-- <a href="<?= base_url(); ?>produk/hapus_produk/<?= $pr['id_produk']; ?>" class="btn btn-sm btn-danger text-light tombol-hapus"><i class="fas fa-trash-alt"></i></a> -->
+                                    <a href="<?= base_url(); ?>produk/hapus_produk/<?= $pr['id_produk']; ?>" class="btn btn-sm btn-danger text-light tombol-hapus"><i class="fas fa-trash-alt"></i></a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>

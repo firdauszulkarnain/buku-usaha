@@ -15,7 +15,7 @@
                     <tbody>
                         <?php foreach ($pembelian as $pb) : ?>
                             <tr>
-                                <td class="text-capitalize"><?= $pb['produk']; ?></td>
+                                <td class="text-capitalize"><?= $pb['produk_name']; ?></td>
                                 <td class="text-center"><?= $pb['unit']; ?></td>
                                 <td class="text-center"><?= number_format($pb['total_beli'], 0, ',', '.') ?></td>
                                 <td class="text-center font-weight-bolder"><?= $pb['tanggal_beli']; ?></td>

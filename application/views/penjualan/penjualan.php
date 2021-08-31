@@ -20,7 +20,9 @@
                     <tbody>
                         <?php foreach ($penjualan as $pj) : ?>
                             <tr>
-                                <td class="text-capitalize"><?= $pj['produk']; ?><span class="badge badge-light float-right"><?= $pj['input'] ?>x Penjualan</span> </td>
+                                <td class="text-capitalize"><?= $pj['produk_name']; ?>
+                                    <span class="badge badge-light float-right"><?= $pj['input'] ?>x Penjualan</span>
+                                </td>
                                 <td class="text-center"><?= $pj['unit']; ?></td>
                                 <td class="text-center"><?= number_format($pj['total_untung'], 0, ',', '.') ?></td>
                                 <td class="text-center font-weight-bolder"><?= $pj['tanggal_jual']; ?></td>
