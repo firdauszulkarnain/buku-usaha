@@ -1,8 +1,13 @@
 <div class="navbar-bg"></div>
-<nav class="navbar navbar-expand-lg main-navbar">
+<nav class="navbar main-navbar">
     <ul class="navbar-nav mr-3">
-        <a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a>
-        <h6 class="mt-2 text-light"><?= $title; ?></h6>
+        <a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i>
+            <h5 class="mt-2 text-light d-inline ml-3"><?= $title; ?></h5>
+        </a>
+
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+        <a class="btn btn-light" href="<?= base_url() ?>/auth/logout">Logout</a>
     </ul>
 </nav>
 </div>

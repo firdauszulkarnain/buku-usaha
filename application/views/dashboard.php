@@ -1,5 +1,6 @@
 <!-- Main Content -->
 <div class="main-content">
+  <div class="flash-data" data-flashdata="<?= $this->session->flashdata('pesan'); ?>"></div>
   <section class="section">
     <div class="row">
       <div class="col-lg-4 col-md-4 col-sm-12">

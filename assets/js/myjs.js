@@ -46,9 +46,9 @@ $(document).ready(function() {
 //   Tabel Kategori
   $('#tabel-kategori').DataTable({
       responsive: true,
-      "lengthMenu": [
-      [5, 10, 25, 50],
-      [5, 10, 25, 50]
+        "lengthMenu": [
+        [5, 10, 25, 50],
+        [5, 10, 25, 50]
     ],
      "columnDefs": [{
         "searchable": false,

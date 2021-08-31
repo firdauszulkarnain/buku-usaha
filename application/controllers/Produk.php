@@ -3,10 +3,19 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Produk extends CI_Controller
 {
+    public function __construct()
+    {
+        parent::__construct();
+        if (!$this->session->userdata('username')) {
+            redirect('auth');
+        }
+    }
     public function data_produk()
     {
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+        $user_id = $data['user']['id_username'];
         $data['title'] = 'Data Produk';
-        $data['produk'] = $this->Model_Produk->get_produk();
+        $data['produk'] = $this->Model_Produk->get_produk($user_id);
         $this->load->view('template/header', $data);
         $this->load->view('template/sidebar');
         $this->load->view('produk/index', $data);
@@ -15,8 +24,10 @@ class Produk extends CI_Controller
 
     public function tambah_produk()
     {
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+        $user_id = $data['user']['id_username'];
         $data['title'] = 'Tambah Data Produk';
-        $data['kategori'] = $this->Model_Produk->data_kategori();
+        $data['kategori'] = $this->Model_Produk->data_kategori($user_id);
 
         $this->form_validation->set_rules(
             'nama',
@@ -65,7 +76,7 @@ class Produk extends CI_Controller
             $this->load->view('produk/tambah_produk', $data);
             $this->load->view('template/footer');
         } else {
-            $this->Model_Produk->tambah_produk();
+            $this->Model_Produk->tambah_produk($user_id);
             $this->session->set_flashdata('pesan', 'Tambah Produk');
             redirect('produk/data_produk');
         }
@@ -74,10 +85,21 @@ class Produk extends CI_Controller
     // Tambah Stock Produk
     public function tambah_stock()
     {
+
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+        $user_id = $data['user']['id_username'];
+        $this->form_validation->set_rules(
+            'stock',
+            'Stock',
+            'required',
+            [
+                'required' => "Kategori Harus Diisi",
+            ]
+        );
         if ($this->form_validation->run() == false) {
             redirect('produk/data_produk');
         } else {
-            $this->Model_Produk->tambah_stock();
+            $this->Model_Produk->tambah_stock($user_id);
             $this->session->set_flashdata('pesan', 'Tambah Stock Produk');
             redirect('produk/data_produk');
         }
@@ -93,9 +115,11 @@ class Produk extends CI_Controller
 
     public function update_produk($id_produk)
     {
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+        $user_id = $data['user']['id_username'];
         $data['title'] = 'Update Produk';
         $data['produk'] = $this->Model_Produk->ambil_produk($id_produk);
-        $data['kategori'] = $this->Model_Produk->ambil_kat_produk($id_produk);
+        $data['kategori'] = $this->Model_Produk->ambil_kat_produk($id_produk, $user_id);
         $this->form_validation->set_rules(
             'nama',
             'Nama Produk',
@@ -143,8 +167,10 @@ class Produk extends CI_Controller
     // Kategori Index
     public function kategori()
     {
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+        $user_id = $data['user']['id_username'];
         $data['title'] = 'Kategori Produk';
-        $data['kategori'] = $this->Model_Produk->get_kategori();
+        $data['kategori'] = $this->Model_Produk->get_kategori($user_id);
 
         $this->load->view('template/header', $data);
         $this->load->view('template/sidebar', $data);
@@ -155,6 +181,8 @@ class Produk extends CI_Controller
     // Tambah Kategori Produk
     public function tambah_kategori()
     {
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+        $user_id = $data['user']['id_username'];
         $data['title'] = 'Tambah Kategori Produk';
         $this->form_validation->set_rules(
             'nama_kat',
@@ -174,7 +202,7 @@ class Produk extends CI_Controller
             $this->load->view('kategori/tambah_kategori', $data);
             $this->load->view('template/footer');
         } else {
-            $this->Model_Produk->tambah_kategori();
+            $this->Model_Produk->tambah_kategori($user_id);
             $this->session->set_flashdata('pesan', 'Tambah Kategori Produk');
             redirect('produk/kategori');
         }

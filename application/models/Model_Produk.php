@@ -10,21 +10,22 @@ class Model_Produk extends CI_Model
     }
 
     // Ambil Data Kategori Produk
-    public function get_produk()
+    public function get_produk($user_id)
     {
         $query = "SELECT `produk`.*, `kategori`.`nama_kategori` as kategori 
                 FROM `produk` JOIN `kategori`
-                ON `produk`.`kategori_id` = `kategori`.`id_kategori`";
+                ON `produk`.`kategori_id` = `kategori`.`id_kategori`
+                WHERE `produk`.`user_id` = $user_id";
         return $this->db->query($query)->result_array();
     }
 
-    public function data_kategori()
+    public function data_kategori($user_id)
     {
-        return $this->db->get('kategori')->result_array();
+        return $this->db->get_where('kategori', ['user_id' => $user_id])->result_array();
     }
 
     // Tambah Produk
-    public function tambah_produk()
+    public function tambah_produk($user_id)
     {
         $jual = $this->input->post('harga_jual');
         $harga_jual = str_replace(".", "", $jual);
@@ -35,13 +36,14 @@ class Model_Produk extends CI_Model
             'hrg_beli' => $harga_beli,
             'hrg_jual' => $harga_jual,
             'kategori_id' => $this->input->post('kategori'),
+            'user_id' => $user_id,
             'stock' => 0
         ];
 
         $this->db->insert('produk', $data);
     }
 
-    public function tambah_stock()
+    public function tambah_stock($user_id)
     {
 
         $id_produk = $this->input->post('id_produk');
@@ -50,6 +52,7 @@ class Model_Produk extends CI_Model
         $data_produk['produk'] = $this->db->get_where('produk', ['id_produk' => $id_produk])->row_array();
         $stock_now = $data_produk['produk']['stock'];
         $jumlah_stock = $stock_now + $add_stock;
+        var_dump($jumlah_stock);
 
         $data = [
             'stock' => $jumlah_stock
@@ -62,6 +65,7 @@ class Model_Produk extends CI_Model
         $hrg_beli = $data_produk['produk']['hrg_beli'];
         $data_beli = [
             'produk_id' => $id_produk,
+            'user_id' => $user_id,
             'unit' => $add_stock,
             'total_beli' => ($hrg_beli * $add_stock),
             'tanggal_beli' => date('Y-m-d')
@@ -88,11 +92,11 @@ class Model_Produk extends CI_Model
         return $this->db->query($query)->row_array();
     }
 
-    public function ambil_kat_produk($id_produk)
+    public function ambil_kat_produk($id_produk, $user_id)
     {
         $data['produk'] = $this->db->get_where('produk', ['id_produk' => $id_produk])->row_array();
         $id_kategori = $data['produk']['kategori_id'];
-        $query = "SELECT * FROM kategori WHERE id_kategori != $id_kategori";
+        $query = "SELECT * FROM kategori WHERE user_id = $user_id && id_kategori != $id_kategori";
         return $this->db->query($query)->result_array();
     }
 
@@ -116,15 +120,16 @@ class Model_Produk extends CI_Model
     // Bagian Kategori
 
     // Ambil Data Kategori Produk
-    public function get_kategori()
+    public function get_kategori($user_id)
     {
-        return $this->db->get('kategori')->result_array();
+        return $this->db->get_where('kategori', ['user_id' => $user_id])->result_array();
     }
 
     // Tambah Kategori Produk
-    public function tambah_kategori()
+    public function tambah_kategori($user_id)
     {
         $data = [
+            'user_id' => $user_id,
             'nama_kategori' => htmlspecialchars(ucwords($this->input->post('nama_kat')))
         ];
 
