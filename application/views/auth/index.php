@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-
+    <link href='<?= base_url(); ?>/assets/img/icon/favicon.ico' rel='shortcut icon'>
     <title>Login Buku Usaha</title>
 
     <!-- Custom fonts for this template-->

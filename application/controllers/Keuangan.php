@@ -13,15 +13,40 @@ class Keuangan extends CI_Controller
     }
     public function penjualan()
     {
+        if ($this->session->userdata('bulan')) {
+            $bulan =  $this->session->userdata('bulan');
+        } else {
+            $bulan = date('n');
+        }
+        if ($this->session->userdata('tahun')) {
+            $tahun = $this->session->userdata('tahun');
+        } else {
+            $tahun = date('Y');
+        }
+
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
         $user_id = $data['user']['id_username'];
         $data['title'] = 'Penjualan Produk';
-        $data['penjualan'] = $this->Model_Keuangan->get_penjualan($user_id);
+        $data['penjualan'] = $this->Model_Keuangan->get_penjualan($user_id, $bulan, $tahun);
+
 
         $this->load->view('template/header', $data);
         $this->load->view('template/sidebar');
         $this->load->view('penjualan/penjualan', $data);
         $this->load->view('template/footer');
+    }
+
+    public function cari_waktu()
+    {
+        $bulan = $this->input->post('bulan');
+        $tahun = $this->input->post('tahun');
+
+        $data = [
+            'bulan' => $bulan,
+            'tahun' => $tahun
+        ];
+        $this->session->set_userdata($data);
+        redirect('keuangan/penjualan');
     }
 
     public function tambah_penjualan()
@@ -67,12 +92,21 @@ class Keuangan extends CI_Controller
     // Cetak PDF
     public function penjualanToPdf()
     {
+        $bulan = $this->session->userdata('bulan');
+        $tahun = $this->session->userdata('tahun');
+        // if ($bulan == null) {
+        //     $bulan = date('n');
+        // }
+        // if ($tahun == null) {
+        //     $tahun = date('Y');
+        // }
+
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
         $user_id = $data['user']['id_username'];
         $this->load->library('dompdf_gen');
-        $data['laporan'] = $this->Model_Keuangan->penjualan_pdf($user_id);
+        $data['laporan'] = $this->Model_Keuangan->penjualan_pdf($user_id, $bulan, $tahun);
         $data['bulan'] = $this->Model_Keuangan->ambil_bulan();
-        $data['total'] = $this->Model_Keuangan->total_penjualan($user_id);
+        $data['total'] = $this->Model_Keuangan->total_penjualan($user_id, $bulan, $tahun);
         $this->load->view('penjualan/laporan_pdf', $data);
         $paper_size = 'A4';
         $orientation = 'potrait';

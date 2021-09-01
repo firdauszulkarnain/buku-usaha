@@ -60,9 +60,10 @@ class Auth extends CI_Controller
         $this->form_validation->set_rules(
             'username',
             'Username',
-            'required|trim',
+            'required|trim|is_unique[user.username]',
             [
-                'required' => 'Username Tidak Boleh Kosong'
+                'required' => 'Username Tidak Boleh Kosong',
+                'is_unique' => 'Username Telah Digunakan'
             ]
         );
         $this->form_validation->set_rules('namaUsaha', 'Nama Usaha', 'required|trim', [
@@ -74,7 +75,7 @@ class Auth extends CI_Controller
             'required|trim|min_length[6]|matches[password2]',
             [
                 'required' => 'Password Tidak Boleh Kosong',
-                'matches' => 'Konfirmasi Password Tidak Sama',
+                'matches' => 'Konfirmasi Password Salah',
                 'min_length' => 'Minimal Password 6 Karakter'
             ]
         );
@@ -96,7 +97,8 @@ class Auth extends CI_Controller
     public function logout()
     {
         $this->session->unset_userdata('username');
-        $this->session->unset_userdata('password');
+        $this->session->unset_userdata('bulan');
+        $this->session->unset_userdata('tahun');
         $this->session->set_flashdata('pesan', 'Logout');
         redirect('auth');
     }

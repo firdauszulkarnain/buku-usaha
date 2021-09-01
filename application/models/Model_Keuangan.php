@@ -60,9 +60,9 @@ class Model_Keuangan extends CI_Model
 
 
 
-    public function get_penjualan($id)
+    public function get_penjualan($id, $bulan, $tahun)
     {
-        $query = "SELECT SUM(total_untung) as total_untung, SUM(unit) as unit, tanggal_jual, produk_name, COUNT(produk_name) as input from penjualan WHERE user_id = $id GROUP BY produk_name, DAY(tanggal_jual)";
+        $query = "SELECT SUM(total_untung) as total_untung, SUM(unit) as unit, tanggal_jual, produk_name, COUNT(produk_name) as input from penjualan WHERE user_id = $id && MONTH(tanggal_jual) = $bulan && YEAR(tanggal_jual) = $tahun GROUP BY produk_name, DAY(tanggal_jual)";
         return $this->db->query($query)->result_array();
     }
 
@@ -87,15 +87,16 @@ class Model_Keuangan extends CI_Model
         $this->db->insert('penjualan', $data);
     }
 
-    public function penjualan_pdf($id)
+    public function penjualan_pdf($id, $bulan, $tahun)
     {
-        $query = "SELECT id_penjualan,  SUM(total_untung) as total_untung, SUM(unit) as unit , tanggal_jual, COUNT(produk_name) as input, produk_name FROM penjualan WHERE user_id = $id GROUP BY produk_name, DAY(tanggal_jual) ORDER BY id_penjualan DESC";
+        $query = "SELECT id_penjualan,  SUM(total_untung) as total_untung, SUM(unit) as unit , tanggal_jual, COUNT(produk_name) as input, produk_name FROM penjualan WHERE user_id = $id && MONTH(tanggal_jual) = $bulan && YEAR(tanggal_jual) = $tahun 
+        GROUP BY produk_name, DAY(tanggal_jual) ORDER BY id_penjualan DESC";
         return $this->db->query($query)->result_array();
     }
 
-    public function total_penjualan($id)
+    public function total_penjualan($id, $bulan, $tahun)
     {
-        $query = "SELECT sum(total_untung) as total_untung from penjualan where user_id = $id";
+        $query = "SELECT sum(total_untung) as total_untung from penjualan where user_id = $id && MONTH(tanggal_jual) = $bulan && YEAR(tanggal_jual) = $tahun";
         return $this->db->query($query)->row_array();
     }
 
