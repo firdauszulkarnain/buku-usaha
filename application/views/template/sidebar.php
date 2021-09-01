@@ -7,7 +7,7 @@
 
     </ul>
     <ul class="nav navbar-nav navbar-right">
-        <a class="btn btn-light" href="<?= base_url() ?>/auth/logout">Logout</a>
+        <button type="button" class="btn btn-light" data-toggle="modal" data-target="#logout">Logout</button>
     </ul>
 </nav>
 </div>
@@ -15,9 +15,10 @@
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
             <a href="<?= base_url() ?>dashboard" class="text-primary font-weight-bold" style="font-size: 16px;"><i class="fas fa-book-open"></i> Buku Usaha</a>
+            <p class="text-primary font-weight-bold mt-n3"><span class="badge badge-primary"> <i class="fas fa-store"></i> <?= $nama ?></span></p>
         </div>
         <ul class="sidebar-menu">
-            <li class="menu-header">Dashboard</li>
+            <li class="menu-header mt-4">Dashboard</li>
             <li <?= $this->uri->segment(1) == 'dashboard' || $this->uri->segment(1) == '' ? 'class="active"' : "" ?>>
                 <a class="nav-link" href="<?= base_url() ?>dashboard">
                     <i class="fas fa-fire"></i>
@@ -52,6 +53,34 @@
                     <span>Penjualan</span>
                 </a>
             </li>
+            <li class="menu-header">Profil Usaha</li>
+            <li>
+                <a class="nav-link" href="#">
+                    <i class="fas fa-store"></i>
+                    <span>Profil Usaha</span>
+                </a>
+            </li>
         </ul>
     </aside>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="logout" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Buku Usaha</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Anda Yakin Keluar Dari Buku Usaha ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <a class="btn btn-danger" href="<?= base_url() ?>auth/logout">Keluar</a>
+            </div>
+        </div>
+    </div>
 </div>

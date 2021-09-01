@@ -11,15 +11,15 @@
                         </a>
                     </div>
                     <div class="col-md-4">
-                        <form action="<?= base_url() ?>keuangan/cari_waktu" method="POST">
+                        <form action="<?= base_url() ?>keuangan/cariPenjualan" method="POST">
                             <div class="form-row">
                                 <div class="form-group col-md-5">
                                     <select class="form-control" id="bulan" name="bulan">
                                         <?php
                                         $bulan = array("Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember");
-                                        if ($this->session->userdata('bulan')) {
-                                            $bln = $this->session->userdata('bulan') - 1;
-                                            $temp = $this->session->userdata('bulan');
+                                        if ($this->session->userdata('bulanJual')) {
+                                            $bln = $this->session->userdata('bulanJual') - 1;
+                                            $temp = $this->session->userdata('bulanJual');
                                         } else {
                                             $bln = date('n') - 1;
                                             $temp = date('n');

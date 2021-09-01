@@ -28,7 +28,7 @@
               <h4 style="font-size: 12px;">Total Jual - <span class="text-primary"><?= $bulan ?></span></h4>
             </div>
             <div class="card-body">
-              <?= $jual['total_jual']; ?>x
+              <?= $jual['total_jual']; ?> Produk
             </div>
           </div>
         </div>

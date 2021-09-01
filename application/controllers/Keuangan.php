@@ -13,19 +13,20 @@ class Keuangan extends CI_Controller
     }
     public function penjualan()
     {
-        if ($this->session->userdata('bulan')) {
-            $bulan =  $this->session->userdata('bulan');
+        if ($this->session->userdata('bulanJual')) {
+            $bulan =  $this->session->userdata('bulanJual');
         } else {
             $bulan = date('n');
         }
-        if ($this->session->userdata('tahun')) {
-            $tahun = $this->session->userdata('tahun');
+        if ($this->session->userdata('tahunJual')) {
+            $tahun = $this->session->userdata('tahunJual');
         } else {
             $tahun = date('Y');
         }
 
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
         $user_id = $data['user']['id_username'];
+        $data['nama'] = $data['user']['namaUsaha'];
         $data['title'] = 'Penjualan Produk';
         $data['penjualan'] = $this->Model_Keuangan->get_penjualan($user_id, $bulan, $tahun);
 
@@ -36,14 +37,14 @@ class Keuangan extends CI_Controller
         $this->load->view('template/footer');
     }
 
-    public function cari_waktu()
+    public function cariPenjualan()
     {
         $bulan = $this->input->post('bulan');
         $tahun = $this->input->post('tahun');
 
         $data = [
-            'bulan' => $bulan,
-            'tahun' => $tahun
+            'bulanJual' => $bulan,
+            'tahunJual' => $tahun
         ];
         $this->session->set_userdata($data);
         redirect('keuangan/penjualan');
@@ -53,6 +54,7 @@ class Keuangan extends CI_Controller
     {
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
         $user_id = $data['user']['id_username'];
+        $data['nama'] = $data['user']['namaUsaha'];
         $data['title'] = 'Tambah Data Penjualan Produk';
         $data['produk'] = $this->Model_Keuangan->ambil_produk($user_id);
         $this->form_validation->set_rules('produk', 'Produk', 'required', [
@@ -78,34 +80,62 @@ class Keuangan extends CI_Controller
 
     public function pembelian()
     {
+        if ($this->session->userdata('bulanBeli')) {
+            $bulan =  $this->session->userdata('bulanBeli');
+        } else {
+            $bulan = date('n');
+        }
+        if ($this->session->userdata('tahunBeli')) {
+            $tahun = $this->session->userdata('tahunBeli');
+        } else {
+            $tahun = date('Y');
+        }
+
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
         $user_id = $data['user']['id_username'];
+        $data['nama'] = $data['user']['namaUsaha'];
         $data['title'] = 'Pembelian Produk';
-        $data['pembelian'] = $this->Model_Keuangan->get_pembelian($user_id);
+        $data['pembelian'] = $this->Model_Keuangan->get_pembelian($user_id, $bulan, $tahun);
         $this->load->view('template/header', $data);
         $this->load->view('template/sidebar');
         $this->load->view('pembelian/pembelian', $data);
         $this->load->view('template/footer');
     }
 
+    public function cariPembelian()
+    {
+        $bulan = $this->input->post('bulan');
+        $tahun = $this->input->post('tahun');
+
+        $data = [
+            'bulanBeli' => $bulan,
+            'tahunBeli' => $tahun
+        ];
+        $this->session->set_userdata($data);
+        redirect('keuangan/pembelian');
+    }
+
 
     // Cetak PDF
     public function penjualanToPdf()
     {
-        $bulan = $this->session->userdata('bulan');
-        $tahun = $this->session->userdata('tahun');
-        // if ($bulan == null) {
-        //     $bulan = date('n');
-        // }
-        // if ($tahun == null) {
-        //     $tahun = date('Y');
-        // }
+        if ($this->session->userdata('bulanJual')) {
+            $bulan =  $this->session->userdata('bulanJual');
+        } else {
+            $bulan = date('n');
+        }
+        if ($this->session->userdata('tahunJual')) {
+            $tahun = $this->session->userdata('tahunJual');
+        } else {
+            $tahun = date('Y');
+        }
 
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
         $user_id = $data['user']['id_username'];
         $this->load->library('dompdf_gen');
         $data['laporan'] = $this->Model_Keuangan->penjualan_pdf($user_id, $bulan, $tahun);
-        $data['bulan'] = $this->Model_Keuangan->ambil_bulan();
+        $data['bulan'] = $this->Model_Keuangan->ambil_bulan($bulan);
+        $data['tahun'] = $tahun;
         $data['total'] = $this->Model_Keuangan->total_penjualan($user_id, $bulan, $tahun);
         $this->load->view('penjualan/laporan_pdf', $data);
         $paper_size = 'A4';
@@ -120,12 +150,24 @@ class Keuangan extends CI_Controller
     // Cetak PDF
     public function pembelianToPdf()
     {
+        if ($this->session->userdata('bulanBeli')) {
+            $bulan =  $this->session->userdata('bulanBeli');
+        } else {
+            $bulan = date('n');
+        }
+        if ($this->session->userdata('tahunBeli')) {
+            $tahun = $this->session->userdata('tahunBeli');
+        } else {
+            $tahun = date('Y');
+        }
+
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
         $user_id = $data['user']['id_username'];
         $this->load->library('dompdf_gen');
-        $data['laporan'] = $this->Model_Keuangan->pembelian_pdf($user_id);
-        $data['bulan'] = $this->Model_Keuangan->ambil_bulan();
-        $data['total'] = $this->Model_Keuangan->total_pembelian($user_id);
+        $data['laporan'] = $this->Model_Keuangan->pembelian_pdf($user_id, $bulan, $tahun);
+        $data['bulan'] = $this->Model_Keuangan->ambil_bulan($bulan);
+        $data['tahun'] = $tahun;
+        $data['total'] = $this->Model_Keuangan->total_pembelian($user_id, $bulan, $tahun);
 
         $this->load->view('pembelian/laporan_pdf', $data);
         $paper_size = 'A4';

@@ -63,7 +63,7 @@
       <th>No</th>
       <th>Nama Produk</th>
       <th>Unit</th>
-      <th>Keuntungan (Rp)</th>
+      <th>Biaya (Rp)</th>
       <th>Tanggal Terjual</th>
     </tr>
     <?php $start = 0; ?>
@@ -79,7 +79,7 @@
     <?php endforeach; ?>
   </table>
   <div class="total">
-    <p class="text">Total Pembelian <?= $bulan; ?></p>
+    <p class="text">Total Pembelian <?= $bulan; ?> <?= $tahun ?></p>
     <p class="harga">Rp. <?= number_format($total['total_beli'], 0, ',', '.') ?></p>
   </div>
 </body></html>

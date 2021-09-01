@@ -79,7 +79,7 @@
     <?php endforeach; ?>
   </table>
   <div class="total">
-    <p class="text">Total Penjualan <?= $bulan; ?></p>
+    <p class="text">Total Penjualan <?= $bulan; ?> <?= $tahun ?></p>
     <p class="harga">Rp. <?= number_format($total['total_untung'], 0, ',', '.') ?></p>
   </div>
 </body></html>

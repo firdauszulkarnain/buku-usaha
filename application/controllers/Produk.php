@@ -14,6 +14,7 @@ class Produk extends CI_Controller
     {
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
         $user_id = $data['user']['id_username'];
+        $data['nama'] = $data['user']['namaUsaha'];
         $data['title'] = 'Data Produk';
         $data['produk'] = $this->Model_Produk->get_produk($user_id);
         $this->load->view('template/header', $data);
@@ -26,6 +27,7 @@ class Produk extends CI_Controller
     {
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
         $user_id = $data['user']['id_username'];
+        $data['nama'] = $data['user']['namaUsaha'];
         $data['title'] = 'Tambah Data Produk';
         $data['kategori'] = $this->Model_Produk->data_kategori($user_id);
 
@@ -88,6 +90,7 @@ class Produk extends CI_Controller
 
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
         $user_id = $data['user']['id_username'];
+        $data['nama'] = $data['user']['namaUsaha'];
         $this->form_validation->set_rules(
             'stock',
             'Stock',
@@ -117,6 +120,7 @@ class Produk extends CI_Controller
     {
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
         $user_id = $data['user']['id_username'];
+        $data['nama'] = $data['user']['namaUsaha'];
         $data['title'] = 'Update Produk';
         $data['produk'] = $this->Model_Produk->ambil_produk($id_produk);
         $data['kategori'] = $this->Model_Produk->ambil_kat_produk($id_produk, $user_id);
@@ -169,6 +173,7 @@ class Produk extends CI_Controller
     {
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
         $user_id = $data['user']['id_username'];
+        $data['nama'] = $data['user']['namaUsaha'];
         $data['title'] = 'Kategori Produk';
         $data['kategori'] = $this->Model_Produk->get_kategori($user_id);
 
@@ -183,6 +188,7 @@ class Produk extends CI_Controller
     {
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
         $user_id = $data['user']['id_username'];
+        $data['nama'] = $data['user']['namaUsaha'];
         $data['title'] = 'Tambah Kategori Produk';
         $this->form_validation->set_rules(
             'nama_kat',
@@ -219,6 +225,8 @@ class Produk extends CI_Controller
     // Update Kategori
     public function update_kategori($id_kategori)
     {
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+        $data['nama'] = $data['user']['namaUsaha'];
         $data['title'] = 'Update Kategori Produk';
         $data['kategori'] = $this->db->get_where('kategori', ['id_kategori' => $id_kategori])->row_array();
         $this->form_validation->set_rules(

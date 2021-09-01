@@ -12,30 +12,30 @@ class Model_Keuangan extends CI_Model
         return $this->db->query($query)->row_array();
     }
 
-    public function ambil_bulan()
+    public function ambil_bulan($bulan)
     {
-        $bulan = array(
-            '01' => 'Januari',
-            '02' => 'Februari',
-            '03' => 'Maret',
-            '04' => 'April',
-            '05' => 'Mei',
-            '06' => 'Juni',
-            '07' => 'Juli',
-            '08' => 'Agustus',
-            '09' => 'September',
+        $data = array(
+            '1' => 'Januari',
+            '2' => 'Februari',
+            '3' => 'Maret',
+            '4' => 'April',
+            '5' => 'Mei',
+            '6' => 'Juni',
+            '7' => 'Juli',
+            '8' => 'Agustus',
+            '9' => 'September',
             '10' => 'Oktober',
             '11' => 'November',
             '12' => 'Desember',
         );
 
-        return $bulan[date('m')];
+        return $data[$bulan];
     }
 
     public function total_jual($id)
     {
         $bulan = date('n');
-        $query = "SELECT count(id_penjualan) as total_jual FROM penjualan WHERE user_id = $id && month(tanggal_jual) = $bulan";
+        $query = "SELECT sum(unit) as total_jual FROM penjualan WHERE user_id = $id && month(tanggal_jual) = $bulan";
         return $this->db->query($query)->row_array();
     }
 
@@ -46,10 +46,10 @@ class Model_Keuangan extends CI_Model
         return $this->db->query($query)->row_array();
     }
 
-    public function get_pembelian($id)
+    public function get_pembelian($id, $bulan, $tahun)
     {
         $query = "SELECT SUM(total_beli) as total_beli, SUM(unit) as unit , tanggal_beli, produk_name FROM pembelian  
-                WHERE user_id = $id GROUP BY produk_name, DAY(tanggal_beli)";
+                WHERE user_id = $id && MONTH(tanggal_beli) = $bulan && YEAR(tanggal_beli) = $tahun GROUP BY produk_name, DAY(tanggal_beli)";
         return $this->db->query($query)->result_array();
     }
 
@@ -100,15 +100,15 @@ class Model_Keuangan extends CI_Model
         return $this->db->query($query)->row_array();
     }
 
-    public function pembelian_pdf($id)
+    public function pembelian_pdf($id, $bulan, $tahun)
     {
-        $query = "SELECT SUM(total_beli) as total_beli, SUM(unit) as unit , tanggal_beli, produk_name FROM pembelian WHERE user_id = $id 
+        $query = "SELECT SUM(total_beli) as total_beli, SUM(unit) as unit , tanggal_beli, produk_name FROM pembelian WHERE user_id = $id && MONTH(tanggal_beli) = $bulan && YEAR(tanggal_beli) = $tahun 
         GROUP BY produk_name, DAY(tanggal_beli) ORDER BY id_pembelian DESC";
         return $this->db->query($query)->result_array();
     }
-    public function total_pembelian($id)
+    public function total_pembelian($id, $bulan, $tahun)
     {
-        $query = "SELECT sum(total_beli) as total_beli from pembelian where user_id = $id";
+        $query = "SELECT sum(total_beli) as total_beli from pembelian where user_id = $id && MONTH(tanggal_beli) = $bulan && YEAR(tanggal_beli) = $tahun";
         return $this->db->query($query)->row_array();
     }
 }
