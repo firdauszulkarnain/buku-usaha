@@ -3,8 +3,17 @@
     <section class="section">
         <div class="row d-flex justify-content-center">
             <div class="col-lg-8">
+
                 <div class="card">
                     <div class="card-body">
+                        <?php if ($this->session->flashdata('error')) : ?>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <strong><?= $this->session->flashdata('error'); ?></strong>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        <?php endif; ?>
                         <form method="POST" action="">
                             <div class="form-group">
                                 <label for="produk">Produk Terjual</label>

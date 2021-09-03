@@ -76,6 +76,12 @@ class Model_Keuangan extends CI_Model
         $harga_beli = $data['produk']['hrg_beli'];
         $laba_bersih = $harga_jual - $harga_beli;
         $unit = $this->input->post('unit');
+        $stock = $data['produk']['stock'];
+
+        if ($unit > $stock) {
+            return 1;
+        }
+
         $data = [
             'produk_name' => $produk_name,
             'user_id' => $id,

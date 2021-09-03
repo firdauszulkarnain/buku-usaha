@@ -28,7 +28,12 @@
               <h4 style="font-size: 12px;">Total Jual - <span class="text-primary"><?= $bulan ?></span></h4>
             </div>
             <div class="card-body">
-              <?= $jual['total_jual']; ?> Produk
+              <?php if ($jual['total_jual'] == 0) : ?>
+                0 Unit
+              <?php else : ?>
+                <?= $jual['total_jual']; ?> Unit
+              <?php endif ?>
+
             </div>
           </div>
         </div>

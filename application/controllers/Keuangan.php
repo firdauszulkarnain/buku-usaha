@@ -66,15 +66,26 @@ class Keuangan extends CI_Controller
             'greater_than' => 'Minimal Unit Terjual Adalah 1'
         ]);
 
+        if ($this->input->post('produk') != null) {
+            $id_produk = $this->input->post('produk');
+            $data['produk_name'] = $this->db->get_where('produk', ['id_produk' => $id_produk])->row_array();
+            $nama_produk = $data['produk_name']['nama_produk'];
+        }
+
         if ($this->form_validation->run() == false) {
             $this->load->view('template/header', $data);
             $this->load->view('template/sidebar');
             $this->load->view('penjualan/tambah_penjualan', $data);
             $this->load->view('template/footer');
         } else {
-            $this->Model_Keuangan->tambah_penjualan($user_id);
-            $this->session->set_flashdata('pesan', 'Tambah Data Penjualan');
-            redirect('keuangan/penjualan');
+
+            if ($this->Model_Keuangan->tambah_penjualan($user_id) == 1) {
+                $this->session->set_flashdata('error', 'Stock ' . $nama_produk . ' Kurang');
+                redirect('keuangan/tambah_penjualan');
+            } else {
+                $this->session->set_flashdata('pesan', 'Tambah Data Penjualan');
+                redirect('keuangan/penjualan');
+            }
         }
     }
 

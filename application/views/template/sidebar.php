@@ -54,8 +54,8 @@
                 </a>
             </li>
             <li class="menu-header">Profil Usaha</li>
-            <li>
-                <a class="nav-link" href="#">
+            <li <?= $this->uri->segment(1) == 'profil' ? 'class="active"' : "" ?>>
+                <a class="nav-link" href="<?= base_url() ?>profil">
                     <i class="fas fa-store"></i>
                     <span>Profil Usaha</span>
                 </a>
