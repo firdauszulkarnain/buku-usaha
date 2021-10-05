@@ -34,10 +34,9 @@ class Produk extends CI_Controller
         $this->form_validation->set_rules(
             'nama',
             'Nama Produk',
-            'trim|required|is_unique[produk.nama_produk]|regex_match[/^([-a-z0-9_ ])+$/i]',
+            'trim|required|regex_match[/^([-a-z0-9_ ])+$/i]',
             [
                 'required' => "Nama Menu Harus Diisi",
-                'is_unique' => "Nama Kategori Sudah Ada",
                 'regex_match' => "Karakter Inputan Salah"
             ]
 
@@ -190,13 +189,13 @@ class Produk extends CI_Controller
         $user_id = $data['user']['id_username'];
         $data['nama'] = $data['user']['namaUsaha'];
         $data['title'] = 'Tambah Kategori Produk';
+
         $this->form_validation->set_rules(
             'nama_kat',
             'Nama Kategori',
-            'trim|required|is_unique[kategori.nama_kategori]|regex_match[/^([a-z ])+$/i]',
+            'trim|required|regex_match[/^([a-z ])+$/i]',
             [
                 'required' => "Nama Kategori Harus Diisi",
-                'is_unique' => "Nama Kategori Sudah Ada",
                 'regex_match' => "Inputan Hanya Menerima Karakter Huruf"
             ]
 
@@ -229,10 +228,11 @@ class Produk extends CI_Controller
         $data['nama'] = $data['user']['namaUsaha'];
         $data['title'] = 'Update Kategori Produk';
         $data['kategori'] = $this->db->get_where('kategori', ['id_kategori' => $id_kategori])->row_array();
+
         $this->form_validation->set_rules(
             'nama_kat',
             'Nama Kategori',
-            'trim|required|is_unique[kategori.nama_kategori]|regex_match[/^([a-z ])+$/i]',
+            'trim|required|regex_match[/^([a-z ])+$/i]',
             [
                 'required' => "Nama Menu Harus Diisi",
                 'is_unique' => "Nama Kategori Sudah Ada",

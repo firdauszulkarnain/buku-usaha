@@ -66,8 +66,9 @@ class Auth extends CI_Controller
                 'is_unique' => 'Username Telah Digunakan'
             ]
         );
-        $this->form_validation->set_rules('namaUsaha', 'Nama Usaha', 'required|trim', [
-            'required' => 'Nama Usaha Tidak Boleh Kosong'
+        $this->form_validation->set_rules('namaUsaha', 'Nama Usaha', 'required|trim|is_unique[user.namaUsaha]', [
+            'required' => 'Nama Usaha Tidak Boleh Kosong',
+            'is_unique' => 'Nama Usaha Sudah Digunakan'
         ]);
         $this->form_validation->set_rules(
             'password1',

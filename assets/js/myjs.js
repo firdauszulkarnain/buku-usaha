@@ -8,7 +8,7 @@ $(document).ready(function() {
 
     // Masking Uang
     // Format mata uang.
-    $('.uang').mask('000.000.000', {
+    $('.uang').mask('000.000.000.000', {
       reverse: true
     });
 

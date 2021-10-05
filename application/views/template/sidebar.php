@@ -15,7 +15,12 @@
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
             <a href="<?= base_url() ?>dashboard" class="text-primary font-weight-bold" style="font-size: 16px;"><i class="fas fa-book-open"></i> Buku Usaha</a>
-            <p class="text-primary font-weight-bold mt-n3"><span class="badge badge-primary"> <i class="fas fa-store"></i> <?= $nama ?></span></p>
+            <?php if (strlen($nama) > 25) : ?>
+                <p class="text-primary font-weight-bold mt-n3"><span class="badge badge-primary"> <i class="fas fa-store"></i> <?= substr($nama, 0, 23) . '..'; ?></span></p>
+            <?php else : ?>
+                <p class="text-primary font-weight-bold mt-n3"><span class="badge badge-primary"> <i class="fas fa-store"></i> <?= $nama ?></span></p>
+            <?php endif ?>
+
         </div>
         <ul class="sidebar-menu">
             <li class="menu-header mt-4">Dashboard</li>
