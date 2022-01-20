@@ -57,7 +57,7 @@
 </head><body>
   <h1>Data Pembelian</h1>
   <hr size="1px">
-  <p class="bulan"><?= $bulan; ?> 2021</p>
+  <p class="bulan"><?= $bulan; ?> <?= $tahun ?></p>
   <table id="tabel">
     <tr>
       <th>No</th>
