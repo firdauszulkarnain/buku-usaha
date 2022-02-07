@@ -20,7 +20,7 @@
 
 </head>
 
-<body class="bg-gradient-primary">
+<body class="bg-gradient-info">
 
     <div class="container">
 
@@ -53,8 +53,8 @@
                                         <input type="password" class="form-control form-control-user" id="password2" placeholder="Konfirmasi Password" name="password2" autocomplete="off">
                                     </div>
                                 </div>
-                                <button class="btn btn-primary btn-user btn-block" type="submit">
-                                    REGISTRASI
+                                <button class="btn btn-info btn-user btn-block" type="submit">
+                                    SUBMIT
                                 </button>
                             </form>
                             <hr>
@@ -62,7 +62,7 @@
                                 <a class="small" href="forgot-password.html">Forgot Password?</a>
                             </div> -->
                             <div class="text-center">
-                                <p class="small">Sudah Punya Akun? Silahkan <a href="<?= base_url('auth') ?>">Login</a></p>
+                                <p class="small">Sudah Punya Akun? Silahkan <a href="<?= base_url('auth') ?>" class="text-decoration-none text-info"><b> Login</b></a></p>
                             </div>
                         </div>
 

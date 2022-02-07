@@ -56,7 +56,7 @@
                     </div>
                 </div>
 
-                <table class="table table-bordered table-light shadow-sm p-3 mb-5 bg-white rounded" id="tabel-keuangan">
+                <table class="table table-bordered table-light shadow-sm p-3 mb-5 bg-white rounded dt-responsive nowrap" id="tabel-keuangan" width="100%">
                     <thead>
                         <tr>
                             <th scope="col" class="text-center">Nama Produk</th>

@@ -20,14 +20,14 @@
 
 </head>
 
-<body class="bg-gradient-primary">
+<body class="bg-gradient-info">
 
     <div class="container">
 
         <!-- Outer Row -->
         <div class="row justify-content-center">
 
-            <div class="col-xl-6 col-lg-8 col-md-9">
+            <div class="col-xl-5 col-lg-8 col-md-9 mt-5">
 
                 <div class="card o-hidden border-0 shadow-lg my-5">
                     <div class="card-body p-0">
@@ -53,7 +53,7 @@
                                     <input type="password" class="form-control form-control-user" id="password" placeholder="Password" name="password" autocomplete="off">
                                     <?= form_error('password', '<small class="form-text text-danger pl-3">', '</small>') ?>
                                 </div>
-                                <button class="btn btn-primary btn-user btn-block" type="submit">
+                                <button class="btn btn-info btn-user btn-block" type="submit">
                                     Login
                                 </button>
                             </form>
@@ -62,7 +62,7 @@
                                 <a class="small" href="forgot-password.html">Forgot Password?</a>
                             </div> -->
                             <div class="text-center">
-                                <p class="small">Belum Punya Akun? Silahkan <a href="<?= base_url('auth/registrasi') ?>">Registrasi</a></p>
+                                <p class="small">Belum Punya Akun? Silahkan <a href="<?= base_url('auth/registrasi') ?>" class="text-decoration-none text-info"><b>Registrasi</b> </a></p>
                             </div>
                         </div>
 

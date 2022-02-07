@@ -43,7 +43,6 @@ class Model_Produk extends CI_Model
 
     public function tambah_stock($user_id)
     {
-
         $id_produk = $this->input->post('id_produk');
         $add_stock = $this->input->post('stock');
         // Tambah Stock

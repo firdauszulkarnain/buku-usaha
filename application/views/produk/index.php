@@ -7,10 +7,10 @@
                 <a href="<?= base_url(); ?>produk/tambah_produk" class="btn btn-lg btn-primary mb-3 font-weight-bold">
                     Tambah Produk
                 </a>
-                <table class="table table-bordered table-light shadow-sm p-3 mb-5 bg-white rounded" id="tabel-produk">
+                <table class="table table-bordered table-light shadow-sm p-3 mb-5 bg-white rounded dt-responsive nowrap" id="tabel-produk" width="100%">
                     <thead>
                         <tr>
-                            <th class="text-center">Nama</th>
+                            <th class=" text-center">Nama</th>
                             <th class="text-center">Harga Beli (Rp)</th>
                             <th class="text-center">Harga Jual (Rp)</th>
                             <th class="text-center">Stock</th>
